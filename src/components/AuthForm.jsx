@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 import { GridForm, Title, Input, Button, TextButton } from '../styled';
 import { toast } from 'react-toastify';
 
@@ -29,6 +30,7 @@ const AuthForm = () => {
             } else {
                 const { user } = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(user, { displayName });
+                await setDoc(doc(db, 'users', user.uid), { displayName });
                 navigate('/', { replace: true });
             }
         } catch (error) {
@@ -70,6 +72,13 @@ const AuthForm = () => {
                 placeholder='Password'
                 required
             />
+            {isSignInForm && (
+                <p>
+                    <TextButton as={Link} to='/reset_password'>
+                        forgot password?
+                    </TextButton>
+                </p>
+            )}
             <Button type='submit' disabled={isLoading}>
                 {isSignInForm ? 'sign in' : 'sign up'}
             </Button>
