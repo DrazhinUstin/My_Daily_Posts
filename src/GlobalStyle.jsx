@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
         --clr-rgb-black: 0, 0, 0;
         --clr-white: #fff;
         --clr-rgb-white: 255, 255, 255;
+        --clr-gray: #ccc;
         --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
@@ -91,6 +92,18 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
+    .main {
+        min-height: 100vh;
+    }
+
+    .grid-center {
+        display: grid;
+        place-items: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
 `;
 
 export default GlobalStyle;
