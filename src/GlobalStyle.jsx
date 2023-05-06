@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
         --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
+        --max-content-width: 1200px;
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
         --toastify-font-family: var(--font-family);   
@@ -88,12 +89,15 @@ const GlobalStyle = createGlobalStyle`
     button {
         cursor: pointer;
         &:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
         }
     }
 
     .main {
-        min-height: 100vh;
+        max-width: var(--max-content-width);
+        width: 90vw;
+        margin: 4rem auto;
     }
 
     .grid-center {

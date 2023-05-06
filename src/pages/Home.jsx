@@ -1,14 +1,14 @@
-import { useAuthContext } from '../contexts/AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { usePostContext } from '../contexts/PostContext';
+import { ProfileCard, CreatePost, Posts, PostEditor } from '../components';
 
 const Home = () => {
-    const { user } = useAuthContext();
+    const { posts, isEditorOpen } = usePostContext();
     return (
-        <main>
-            <h2>{user.displayName}</h2>
-            <h4>{user.email}</h4>
-            <button onClick={() => signOut(auth)}>sign out</button>
+        <main className='main'>
+            <ProfileCard />
+            <CreatePost />
+            <Posts posts={posts} />
+            {isEditorOpen && <PostEditor />}
         </main>
     );
 };
