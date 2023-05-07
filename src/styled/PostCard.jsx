@@ -9,13 +9,41 @@ export default styled.article`
     padding: 1rem;
     border: 1px solid var(--clr-gray);
     border-radius: var(--radius);
-    .controls {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.5rem;
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        column-gap: 0.5rem;
     }
-    .date {
-        font-size: 0.875rem;
+    .user {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+        img {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        h4 {
+            letter-spacing: unset;
+        }
+        p {
+            font-size: 0.875rem;
+        }
+    }
+    .controls {
+        position: relative;
+        &-menu {
+            position: absolute;
+            top: calc(100% + 0.25rem);
+            right: 0;
+            width: max-content;
+            display: grid;
+            border-radius: var(--radius);
+            background-color: var(--clr-black);
+        }
     }
     img {
         width: 100%;

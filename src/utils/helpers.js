@@ -1,9 +1,18 @@
-export const formatTimestamp = (timestamp) => {
-    return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: '2-digit',
+export const formatTimestamp = (timestamp, locales = 'en-US') => {
+    timestamp = new Date(timestamp.seconds * 1000);
+    if (
+        timestamp.getDate() !== new Date().getDate() ||
+        timestamp.getMonth() !== new Date().getMonth() ||
+        timestamp.getFullYear() !== new Date().getFullYear()
+    ) {
+        return new Intl.DateTimeFormat(locales, {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+        }).format(timestamp);
+    }
+    return new Intl.DateTimeFormat(locales, {
         hour: '2-digit',
         minute: '2-digit',
-    }).format(new Date(timestamp.seconds * 1000));
+    }).format(timestamp);
 };
