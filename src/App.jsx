@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home, Auth, RequireAuth, ResetPassword } from './pages';
+import { Navbar } from './components';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +9,7 @@ const App = () => {
     return (
         <>
             <Router>
+                <Navbar />
                 <Routes>
                     <Route element={<RequireAuth />}>
                         <Route

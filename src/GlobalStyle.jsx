@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
         --max-content-width: 1200px;
+        --navbar-height: 3.5rem;
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
         --toastify-font-family: var(--font-family);   
@@ -98,6 +99,12 @@ const GlobalStyle = createGlobalStyle`
         max-width: var(--max-content-width);
         width: 90vw;
         margin: 4rem auto;
+    }
+
+    .section-center {
+        max-width: var(--max-content-width);
+        width: 90vw;
+        margin: auto;
     }
 
     .grid-center {
