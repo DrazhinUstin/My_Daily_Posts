@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home, Auth, RequireAuth, ResetPassword } from './pages';
+import { Home, Profile, Auth, RequireAuth, ResetPassword } from './pages';
 import { Navbar } from './components';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
@@ -20,6 +20,7 @@ const App = () => {
                                 </PostProvider>
                             }
                         />
+                        <Route path='profile' element={<Profile />} />
                     </Route>
                     <Route path='auth' element={<Auth />} />
                     <Route path='reset_password' element={<ResetPassword />} />
