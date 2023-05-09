@@ -7,3 +7,4 @@ export { default as PostCardMenu } from './PostCardMenu';
 export { default as PostEditor } from './PostEditor';
 export { default as UpdateProfileForm } from './UpdateProfileForm';
 export { default as UpdateEmailForm } from './UpdateEmailForm';
+export { default as UpdatePasswordForm } from './UpdatePasswordForm';
