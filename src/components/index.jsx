@@ -5,3 +5,5 @@ export { default as Posts } from './Posts';
 export { default as PostCard } from './PostCard';
 export { default as PostCardMenu } from './PostCardMenu';
 export { default as PostEditor } from './PostEditor';
+export { default as UpdateProfileForm } from './UpdateProfileForm';
+export { default as UpdateEmailForm } from './UpdateEmailForm';
