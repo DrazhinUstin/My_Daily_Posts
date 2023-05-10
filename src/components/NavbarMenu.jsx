@@ -23,9 +23,9 @@ const NavbarMenu = () => {
             {isMenuOpen && (
                 <ul className='user-menu' onClick={() => setIsMenuOpen(false)}>
                     <li>
-                        <Link to='/profile'>
+                        <Link to='/settings'>
                             <FaUserCog />
-                            profile
+                            settings
                         </Link>
                     </li>
                     <li>

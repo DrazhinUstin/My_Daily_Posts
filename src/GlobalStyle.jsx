@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
         --clr-white: #fff;
         --clr-rgb-white: 255, 255, 255;
         --clr-gray: #ccc;
+        --clr-blue: royalblue;
         --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
