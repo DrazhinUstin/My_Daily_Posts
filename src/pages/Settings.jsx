@@ -12,9 +12,9 @@ const Settings = () => {
                     </NavLink>
                 ))}
             </aside>
-            <section>
+            <div className='outlet'>
                 <Outlet />
-            </section>
+            </div>
         </Wrapper>
     );
 };

@@ -1,8 +1,7 @@
 import { useAuthContext } from '../contexts/AuthContext';
 import { formatTimestamp } from '../utils/helpers';
 import { PostCardMenu } from './';
-import { PostCard as Card } from '../styled';
-import default_user from '../assets/default_user.svg';
+import { PostCard as Card, Avatar } from '../styled';
 
 const PostCard = ({ post }) => {
     const { user } = useAuthContext();
@@ -10,7 +9,7 @@ const PostCard = ({ post }) => {
         <Card>
             <header className='header'>
                 <div className='user'>
-                    <img src={user.photoURL || default_user} alt='avatar' />
+                    <Avatar src={user.photoURL} />
                     <div>
                         <h4>{user.displayName}</h4>
                         <p>{post.timestamp && formatTimestamp(post.timestamp)}</p>

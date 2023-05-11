@@ -1,5 +1,5 @@
 export const formatTimestamp = (timestamp, locales = 'en-US') => {
-    timestamp = new Date(timestamp.seconds * 1000);
+    timestamp = new Date(timestamp?.seconds ? timestamp.seconds * 1000 : timestamp);
     if (
         timestamp.getDate() !== new Date().getDate() ||
         timestamp.getMonth() !== new Date().getMonth() ||

@@ -38,4 +38,11 @@ export default styled.main.attrs(() => ({ className: 'main' }))`
             }
         }
     }
+    .outlet {
+        display: flex;
+        justify-content: center;
+        form {
+            padding: 0;
+        }
+    }
 `;

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useAuthContext } from '../contexts/AuthContext';
-import default_user from '../assets/default_user.svg';
+import { Avatar } from '../styled';
 
 const NavbarMenu = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,11 +15,7 @@ const NavbarMenu = () => {
 
     return (
         <div className='user'>
-            <img
-                src={user?.photoURL || default_user}
-                alt='avatar'
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
+            <Avatar src={user?.photoURL} size='2rem' onClick={() => setIsMenuOpen(!isMenuOpen)} />
             {isMenuOpen && (
                 <ul className='user-menu' onClick={() => setIsMenuOpen(false)}>
                     <li>

@@ -21,10 +21,6 @@ export default styled.article`
         column-gap: 0.5rem;
         img {
             flex-shrink: 0;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            object-fit: cover;
         }
         h4 {
             letter-spacing: unset;
@@ -45,7 +41,7 @@ export default styled.article`
             background-color: var(--clr-black);
         }
     }
-    img {
+    & > img {
         width: 100%;
         border-radius: var(--radius);
     }
