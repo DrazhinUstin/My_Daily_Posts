@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home, Settings, Account, Auth, RequireAuth, ResetPassword } from './pages';
+import { Home, Users, Settings, Account, Auth, RequireAuth, ResetPassword } from './pages';
 import { Navbar, UpdateProfileForm, UpdateEmailForm, UpdatePasswordForm } from './components';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
@@ -20,6 +20,7 @@ const App = () => {
                                 </PostProvider>
                             }
                         />
+                        <Route path='users' element={<Users />} />
                         <Route path='settings' element={<Settings />}>
                             <Route index element={<Account />} />
                             <Route path='profile' element={<UpdateProfileForm />} />

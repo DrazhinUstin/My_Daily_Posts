@@ -30,7 +30,7 @@ const AuthForm = () => {
             } else {
                 const { user } = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(user, { displayName });
-                await setDoc(doc(db, 'users', user.uid), { displayName });
+                await setDoc(doc(db, 'users', user.uid), { uid: user.uid, displayName });
                 navigate('/', { replace: true });
             }
         } catch (error) {
