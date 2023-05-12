@@ -5,7 +5,9 @@ const GridForm = styled.form`
     width: 100%;
     display: grid;
     row-gap: 1rem;
-    padding: 1rem;
+    margin: ${(props) => props.margin};
+    padding: ${(props) => props.padding || '1rem'};
+    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
     text-align: center;
     input,
     select {

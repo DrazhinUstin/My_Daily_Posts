@@ -2,22 +2,24 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { query, collection, where, startAfter, limit, getDocs } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import UserCard from '../components/UserCard';
-import { Title, Button } from '../styled';
+import { UserSearchForm, UserCard } from '../components';
+import { Button } from '../styled';
 import styled from 'styled-components';
 
 const Users = ({ dbLimit = 10 }) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [search, setSearch] = useState('');
     const [users, setUsers] = useState([]);
     const [lastVisible, setLastVisible] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
-        const q = query(
+        let q = query(
             collection(db, 'users'),
             where('uid', '!=', auth.currentUser.uid),
             limit(dbLimit)
         );
+        if (search) q = query(q, where('displayName', '==', search));
         getDocs(q)
             .then(({ docs }) => {
                 setUsers(docs.map((doc) => ({ id: doc.id, ...doc.data() })));
@@ -25,17 +27,18 @@ const Users = ({ dbLimit = 10 }) => {
             })
             .catch((error) => toast.error(error.message))
             .finally(() => setIsLoading(false));
-    }, [dbLimit]);
+    }, [dbLimit, search]);
 
     const loadNext = async () => {
         setIsLoading(true);
         try {
-            const q = query(
+            let q = query(
                 collection(db, 'users'),
                 where('uid', '!=', auth.currentUser.uid),
                 startAfter(lastVisible),
                 limit(dbLimit)
             );
+            if (search) q = query(q, where('displayName', '==', search));
             const { docs } = await getDocs(q);
             setUsers((users) => [...users, ...docs.map((doc) => ({ id: doc.id, ...doc.data() }))]);
             setLastVisible(docs.length === dbLimit ? docs[docs.length - 1] : null);
@@ -47,7 +50,7 @@ const Users = ({ dbLimit = 10 }) => {
 
     return (
         <main className='main'>
-            <Title margin='0 0 4rem'>list of users</Title>
+            <UserSearchForm isLoading={isLoading} search={search} setSearch={setSearch} />
             <GridAutoFill>
                 {users.map((user) => (
                     <UserCard key={user.uid} {...user} />
@@ -60,6 +63,7 @@ const Users = ({ dbLimit = 10 }) => {
                     </Button>
                 </div>
             )}
+            {!users.length && !isLoading && <h3 className='text-center'>No users were found...</h3>}
         </main>
     );
 };

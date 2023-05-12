@@ -13,8 +13,8 @@ const Input = styled.input.attrs((props) => ({ type: props.type || 'text' }))`
     }
     &:focus {
         outline: none;
-        border-color: var(--clr-black);
-        box-shadow: 0 0 0 1px var(--clr-black);
+        border-color: var(--clr-blue);
+        box-shadow: 0 0 0 1px var(--clr-blue);
     }
 `;
 
