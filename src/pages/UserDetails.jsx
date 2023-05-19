@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, doc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Title, Avatar } from '../styled';
-import { breakpoints } from '../GlobalStyle';
-import styled from 'styled-components';
+import { ProfileHeader, UserLinks } from '../components';
 
 const UserDetails = () => {
     const { uid } = useParams();
@@ -27,29 +25,13 @@ const UserDetails = () => {
 
     if (isLoading) return <h2 className='text-center'>loading...</h2>;
 
-    const { displayName, photoURL } = userData;
     return (
         <main className='main'>
-            <Details>
-                <Avatar src={photoURL} size='17.5rem' margin='auto' />
-                <div>
-                    <Title>{displayName}</Title>
-                </div>
-            </Details>
+            <ProfileHeader {...userData} />
+            <UserLinks />
+            <Outlet context={{ userData }} />
         </main>
     );
 };
 
 export default UserDetails;
-
-const Details = styled.article`
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
-    @media ${breakpoints.sm} {
-        grid-template-columns: unset;
-    }
-`;
