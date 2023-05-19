@@ -1,15 +1,16 @@
-import { Avatar, Title, Button } from '../styled';
+import ConnectionBtn from './ConnectionBtn';
+import { Avatar, Title } from '../styled';
 import { breakpoints } from '../GlobalStyle';
 import styled from 'styled-components';
 
-const ProfileHeader = ({ photoURL, displayName }) => {
+const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
     return (
         <Header>
             <div className='info'>
                 <Avatar src={photoURL} size='10rem' margin='auto' />
                 <Title>{displayName}</Title>
             </div>
-            <Button>connect</Button>
+            <ConnectionBtn uid={uid} connections={connections} />
         </Header>
     );
 };
