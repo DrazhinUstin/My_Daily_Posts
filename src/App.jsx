@@ -11,7 +11,13 @@ import {
     RequireAuth,
     ResetPassword,
 } from './pages';
-import { Navbar, UpdateProfileForm, UpdateEmailForm, UpdatePasswordForm } from './components';
+import {
+    Navbar,
+    UpdateProfileForm,
+    UpdateEmailForm,
+    UpdatePasswordForm,
+    UpdatePersonalForm,
+} from './components';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -41,6 +47,7 @@ const App = () => {
                             <Route path='profile' element={<UpdateProfileForm />} />
                             <Route path='email' element={<UpdateEmailForm />} />
                             <Route path='password' element={<UpdatePasswordForm />} />
+                            <Route path='personal' element={<UpdatePersonalForm />} />
                         </Route>
                     </Route>
                     <Route path='auth' element={<Auth />} />

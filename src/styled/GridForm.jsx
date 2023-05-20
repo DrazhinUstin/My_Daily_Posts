@@ -9,8 +9,14 @@ const GridForm = styled.form`
     padding: ${(props) => props.padding || '1rem'};
     box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
     text-align: center;
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
     input,
-    select {
+    select,
+    textarea {
         width: 100%;
     }
 `;

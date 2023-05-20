@@ -6,6 +6,7 @@ import {
     FaUser,
     FaEnvelope,
     FaShieldAlt,
+    FaPenAlt,
 } from 'react-icons/fa';
 
 export const navbarLinks = [
@@ -53,5 +54,11 @@ export const settingsLinks = [
         icon: <FaShieldAlt />,
         name: 'password',
         path: 'password',
+    },
+    {
+        id: 5,
+        icon: <FaPenAlt />,
+        name: 'personal',
+        path: 'personal',
     },
 ];
