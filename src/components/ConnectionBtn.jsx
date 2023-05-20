@@ -15,10 +15,16 @@ const ConnectionBtn = ({ uid, connections }) => {
                 await updateDoc(doc(db, `users/${uid}`), {
                     connections: arrayUnion(auth.currentUser.uid),
                 });
+                await updateDoc(doc(db, `users/${auth.currentUser.uid}`), {
+                    connections: arrayUnion(uid),
+                });
                 toast.success('Connection added!');
             } else {
                 await updateDoc(doc(db, `users/${uid}`), {
                     connections: arrayRemove(auth.currentUser.uid),
+                });
+                await updateDoc(doc(db, `users/${auth.currentUser.uid}`), {
+                    connections: arrayRemove(uid),
                 });
                 toast.success('Connection removed!');
             }

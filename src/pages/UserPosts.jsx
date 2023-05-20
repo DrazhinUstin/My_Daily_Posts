@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { query, collection, where, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Posts } from '../components';
@@ -18,7 +19,8 @@ const UserPosts = ({ initialLimit = 10 }) => {
                 orderBy('timestamp', 'desc'),
                 limit(currentLimit)
             ),
-            ({ docs }) => setPosts(docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+            ({ docs }) => setPosts(docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
+            (error) => toast.error(error.message)
         );
         return () => unsubscribe();
     }, [userData, currentLimit]);
@@ -27,7 +29,7 @@ const UserPosts = ({ initialLimit = 10 }) => {
         <section>
             <Posts posts={posts} />
             {posts.length === currentLimit && (
-                <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                     <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>
                         load next
                     </Button>

@@ -4,7 +4,9 @@ import styled from 'styled-components';
 const UserLinks = () => {
     return (
         <Wrapper>
-            <NavLink to='.'>posts</NavLink>
+            <NavLink to='.' end>
+                posts
+            </NavLink>
             <NavLink to='connections'>connections</NavLink>
         </Wrapper>
     );
