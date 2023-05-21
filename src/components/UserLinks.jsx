@@ -7,6 +7,7 @@ const UserLinks = () => {
             <NavLink to='.' end>
                 posts
             </NavLink>
+            <NavLink to='personal'>personal</NavLink>
             <NavLink to='connections'>connections</NavLink>
         </Wrapper>
     );

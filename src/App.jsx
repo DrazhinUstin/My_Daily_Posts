@@ -4,6 +4,7 @@ import {
     Users,
     UserDetails,
     UserPosts,
+    UserPersonal,
     UserConnections,
     Settings,
     Account,
@@ -40,6 +41,7 @@ const App = () => {
                         <Route path='users' element={<Users />} />
                         <Route path='user/:uid' element={<UserDetails />}>
                             <Route index element={<UserPosts />} />
+                            <Route path='personal' element={<UserPersonal />} />
                             <Route path='connections' element={<UserConnections />} />
                         </Route>
                         <Route path='settings' element={<Settings />}>

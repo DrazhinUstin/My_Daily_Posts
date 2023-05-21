@@ -12,7 +12,7 @@ const Account = () => {
     return (
         <section>
             <Title margin='0 0 2rem'>account details</Title>
-            <GridList>
+            <GridList align='center'>
                 <li>
                     Avatar: <Avatar src={photoURL} />
                 </li>
