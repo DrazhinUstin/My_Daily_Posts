@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
+import CustomDatePicker from './CustomDatePicker';
 import { GridForm, Title, Input, Button } from '../styled';
 
 const UpdatePersonalForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [values, setValues] = useState({
+        birthday: '',
         gender: '',
         bio: '',
         location: '',
@@ -39,6 +41,15 @@ const UpdatePersonalForm = () => {
     return (
         <GridForm onSubmit={handleSubmit}>
             <Title>update personal</Title>
+            <div>
+                <label htmlFor='birthday'>Birthday:</label>
+                <CustomDatePicker
+                    id='birthday'
+                    selected={values.birthday}
+                    onChange={(d) => setValues({ ...values, birthday: d?.getTime() || '' })}
+                    disabled={isLoading}
+                />
+            </div>
             <div>
                 <label htmlFor='gender'>Gender:</label>
                 <Input

@@ -82,7 +82,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     input,
-    select {
+    select, 
+    textarea {
         &:disabled {
             cursor: not-allowed;
         }

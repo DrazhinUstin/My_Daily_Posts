@@ -1,5 +1,13 @@
 import { useOutletContext } from 'react-router-dom';
-import { FaBook, FaTransgender, FaMapMarkerAlt, FaBriefcase, FaGlobe } from 'react-icons/fa';
+import {
+    FaBook,
+    FaBirthdayCake,
+    FaTransgender,
+    FaMapMarkerAlt,
+    FaBriefcase,
+    FaGlobe,
+} from 'react-icons/fa';
+import { formatTimestamp } from '../utils/helpers';
 import { GridList } from '../styled';
 import styled from 'styled-components';
 
@@ -16,6 +24,15 @@ const UserPersonal = () => {
                         Bio:
                     </span>
                     {personal?.bio || <em>not specified</em>}
+                </li>
+                <li>
+                    <span className='flex'>
+                        <FaBirthdayCake />
+                        Birthday:
+                    </span>
+                    {(personal?.birthday && formatTimestamp(personal.birthday)) || (
+                        <em>not specified</em>
+                    )}
                 </li>
                 <li>
                     <span className='flex'>
