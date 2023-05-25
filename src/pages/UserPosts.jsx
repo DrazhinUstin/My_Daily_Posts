@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { query, collection, where, orderBy, limit, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase';
-import { Posts } from '../components';
+import { db, auth } from '../firebase';
+import { usePostContext } from '../contexts/PostContext';
+import { CreatePost, PostEditor, PostCard } from '../components';
 import { Button } from '../styled';
 
 const UserPosts = ({ initialLimit = 10 }) => {
-    const { userData } = useOutletContext();
+    const { uid } = useOutletContext();
+    const { isEditorOpen } = usePostContext() || {};
     const [posts, setPosts] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
 
@@ -15,7 +17,7 @@ const UserPosts = ({ initialLimit = 10 }) => {
         const unsubscribe = onSnapshot(
             query(
                 collection(db, 'posts'),
-                where('uid', '==', userData?.uid),
+                where('uid', '==', uid),
                 orderBy('timestamp', 'desc'),
                 limit(currentLimit)
             ),
@@ -23,11 +25,21 @@ const UserPosts = ({ initialLimit = 10 }) => {
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
-    }, [userData, currentLimit]);
+    }, [uid, currentLimit]);
 
     return (
         <section>
-            <Posts posts={posts} />
+            {uid === auth.currentUser.uid && (
+                <>
+                    <CreatePost />
+                    {isEditorOpen && <PostEditor />}
+                </>
+            )}
+            <div style={{ display: 'grid', rowGap: '2rem' }}>
+                {posts.map((post, index) => (
+                    <PostCard key={index} post={post} />
+                ))}
+            </div>
             {posts.length === currentLimit && (
                 <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                     <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>

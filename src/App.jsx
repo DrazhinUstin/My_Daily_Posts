@@ -30,14 +30,18 @@ const App = () => {
                 <Navbar />
                 <Routes>
                     <Route element={<RequireAuth />}>
-                        <Route
-                            path='/'
-                            element={
-                                <PostProvider>
-                                    <Home />
-                                </PostProvider>
-                            }
-                        />
+                        <Route path='/' element={<Home />}>
+                            <Route
+                                index
+                                element={
+                                    <PostProvider>
+                                        <UserPosts />
+                                    </PostProvider>
+                                }
+                            />
+                            <Route path='personal' element={<UserPersonal />} />
+                            <Route path='connections' element={<UserConnections />} />
+                        </Route>
                         <Route path='users' element={<Users />} />
                         <Route path='user/:uid' element={<UserDetails />}>
                             <Route index element={<UserPosts />} />

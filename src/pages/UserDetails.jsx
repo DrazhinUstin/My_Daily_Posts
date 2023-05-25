@@ -29,7 +29,7 @@ const UserDetails = () => {
         <main className='main'>
             <ProfileHeader {...userData} />
             <UserLinks />
-            <Outlet context={{ userData }} />
+            <Outlet context={userData} />
         </main>
     );
 };

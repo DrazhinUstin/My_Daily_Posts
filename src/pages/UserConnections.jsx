@@ -8,7 +8,7 @@ import Button from '../styled/Button';
 import styled from 'styled-components';
 
 const UserConnections = ({ initialLimit = 10 }) => {
-    const { userData } = useOutletContext();
+    const { uid } = useOutletContext();
     const [connections, setConnections] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
 
@@ -16,14 +16,14 @@ const UserConnections = ({ initialLimit = 10 }) => {
         const unsubscribe = onSnapshot(
             query(
                 collection(db, 'users'),
-                where('connections', 'array-contains', userData?.uid),
+                where('connections', 'array-contains', uid),
                 limit(currentLimit)
             ),
             ({ docs }) => setConnections(docs.map((doc) => doc.data())),
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
-    }, [userData, currentLimit]);
+    }, [uid, currentLimit]);
 
     return (
         <section>

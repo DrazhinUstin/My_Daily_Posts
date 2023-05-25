@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+import { FaUserEdit } from 'react-icons/fa';
+import { auth } from '../firebase';
 import ConnectionBtn from './ConnectionBtn';
-import { Avatar, Title } from '../styled';
+import { Avatar, Title, Button } from '../styled';
 import { breakpoints } from '../GlobalStyle';
 import styled from 'styled-components';
 
@@ -10,7 +13,13 @@ const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
                 <Avatar src={photoURL} size='10rem' margin='auto' />
                 <Title>{displayName}</Title>
             </div>
-            <ConnectionBtn uid={uid} connections={connections} />
+            {uid === auth.currentUser.uid ? (
+                <Button as={Link} to='/settings/profile' flex>
+                    <FaUserEdit /> edit profile
+                </Button>
+            ) : (
+                <ConnectionBtn uid={uid} connections={connections} />
+            )}
         </Header>
     );
 };

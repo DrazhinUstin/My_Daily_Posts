@@ -1,14 +1,17 @@
-import { usePostContext } from '../contexts/PostContext';
-import { ProfileCard, CreatePost, Posts, PostEditor } from '../components';
+import { Outlet } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import { ProfileHeader, UserLinks } from '../components';
 
 const Home = () => {
-    const { posts, isEditorOpen } = usePostContext();
+    const { userData } = useAuthContext();
+
+    if (!userData) return <h2 className='text-center'>loading...</h2>;
+
     return (
         <main className='main'>
-            <ProfileCard />
-            <CreatePost />
-            <Posts posts={posts} />
-            {isEditorOpen && <PostEditor />}
+            <ProfileHeader {...userData} />
+            <UserLinks />
+            <Outlet context={userData} />
         </main>
     );
 };

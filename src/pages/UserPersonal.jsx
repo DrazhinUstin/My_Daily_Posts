@@ -1,4 +1,4 @@
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, Link } from 'react-router-dom';
 import {
     FaBook,
     FaBirthdayCake,
@@ -6,15 +6,15 @@ import {
     FaMapMarkerAlt,
     FaBriefcase,
     FaGlobe,
+    FaPenAlt,
 } from 'react-icons/fa';
+import { auth } from '../firebase';
 import { formatTimestamp } from '../utils/helpers';
-import { GridList } from '../styled';
+import { GridList, Button } from '../styled';
 import styled from 'styled-components';
 
 const UserPersonal = () => {
-    const {
-        userData: { personal },
-    } = useOutletContext();
+    const { uid, personal } = useOutletContext();
     return (
         <Wrapper>
             <GridList columns='7rem auto'>
@@ -69,6 +69,14 @@ const UserPersonal = () => {
                     )}
                 </li>
             </GridList>
+            {uid === auth.currentUser.uid && (
+                <div style={{ marginTop: '2rem', textAlign: 'right' }}>
+                    <Button as={Link} to='/settings/personal' flex>
+                        <FaPenAlt />
+                        edit personal
+                    </Button>
+                </div>
+            )}
         </Wrapper>
     );
 };
@@ -79,18 +87,20 @@ const Wrapper = styled.section`
     max-width: 600px;
     padding: 1rem;
     box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
-    .flex {
-        display: flex;
-        align-items: center;
-        column-gap: 0.25rem;
-        svg {
-            flex-shrink: 0;
+    ${GridList} {
+        .flex {
+            display: flex;
+            align-items: center;
+            column-gap: 0.25rem;
+            svg {
+                flex-shrink: 0;
+            }
         }
-    }
-    a {
-        color: var(--clr-blue);
-        &:hover {
-            text-decoration: underline;
+        a {
+            color: var(--clr-blue);
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 `;

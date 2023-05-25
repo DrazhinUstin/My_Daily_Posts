@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
 import { Avatar, Button } from '../styled';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ const UserCard = ({ uid, photoURL, displayName }) => {
         <Wrapper key={uid}>
             <Avatar src={photoURL} size='5rem' margin='auto' />
             <h4>{displayName}</h4>
-            <Button as={Link} to={`/user/${uid}`}>
+            <Button as={Link} to={uid === auth.currentUser.uid ? '/' : `/user/${uid}`}>
                 view
             </Button>
         </Wrapper>
