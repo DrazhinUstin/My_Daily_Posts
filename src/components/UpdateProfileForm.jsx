@@ -4,7 +4,8 @@ import { updateProfile } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, storage, db } from '../firebase';
-import { GridForm, Title, Input, Button } from '../styled';
+import { FormField } from '.';
+import { GridForm, Title, Button } from '../styled';
 
 const UpdateProfileForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -56,13 +57,13 @@ const UpdateProfileForm = () => {
     return (
         <GridForm onSubmit={handleSubmit}>
             <Title>update profile</Title>
-            <Input
+            <FormField
                 name='displayName'
                 value={values.displayName}
                 onChange={handleChange}
-                placeholder='Username'
                 disabled={isLoading}
                 required
+                labelText='Username:'
             />
             <Button onClick={(e) => e.target.nextElementSibling.click()} disabled={isLoading}>
                 change avatar

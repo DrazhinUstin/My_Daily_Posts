@@ -7,7 +7,7 @@ const CreatePost = () => {
     const { dispatch } = usePostContext();
     return (
         <Wrapper>
-            <Button flex onClick={() => dispatch({ type: 'OPEN_EDITOR' })}>
+            <Button $flex onClick={() => dispatch({ type: 'OPEN_EDITOR' })}>
                 <FaPlus /> create post
             </Button>
         </Wrapper>

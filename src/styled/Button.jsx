@@ -14,7 +14,7 @@ const Button = styled.button.attrs((props) => ({ type: props.type || 'button' })
     text-transform: capitalize;
     letter-spacing: var(--spacing);
     ${(props) =>
-        props.flex &&
+        props.$flex &&
         css`
             display: inline-flex;
             justify-content: center;
@@ -22,7 +22,7 @@ const Button = styled.button.attrs((props) => ({ type: props.type || 'button' })
             column-gap: 0.5rem;
         `}
     ${(props) =>
-        props.icon &&
+        props.$icon &&
         css`
             padding: 0.375rem;
             border-radius: 50%;
@@ -58,3 +58,7 @@ const Button = styled.button.attrs((props) => ({ type: props.type || 'button' })
 `;
 
 export default Button;
+
+export const AlertButton = styled(Button)`
+    background-color: var(--clr-red);
+`;

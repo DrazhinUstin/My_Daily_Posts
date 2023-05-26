@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { usePostContext } from '../contexts/PostContext';
-import { Button } from '../styled';
+import { Button, AlertButton } from '../styled';
 import { FaEllipsisH, FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 const PostCardMenu = ({ post }) => {
@@ -8,17 +8,20 @@ const PostCardMenu = ({ post }) => {
     const { dispatch, deletePost } = usePostContext();
     return (
         <div className='controls'>
-            <Button icon onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <Button $icon onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <FaEllipsisH />
             </Button>
             {isMenuOpen && (
                 <div className='controls-menu' onClick={() => setIsMenuOpen(false)}>
-                    <Button flex onClick={() => dispatch({ type: 'START_EDITING', payload: post })}>
+                    <Button
+                        $flex
+                        onClick={() => dispatch({ type: 'START_EDITING', payload: post })}
+                    >
                         <FaEdit /> edit
                     </Button>
-                    <Button flex onClick={() => deletePost(post)}>
+                    <AlertButton $flex onClick={() => deletePost(post)}>
                         <FaTrashAlt /> delete
-                    </Button>
+                    </AlertButton>
                 </div>
             )}
         </div>

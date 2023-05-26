@@ -3,7 +3,7 @@ import { FaUserPlus, FaUserMinus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import { Button } from '../styled';
+import { Button, AlertButton } from '../styled';
 
 const ConnectionBtn = ({ uid, connections }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -35,18 +35,14 @@ const ConnectionBtn = ({ uid, connections }) => {
     };
 
     const isConnectionExist = connections?.includes(auth.currentUser.uid);
-    return (
-        <Button onClick={toggleConnection} disabled={isLoading} flex>
-            {!isConnectionExist ? (
-                <>
-                    <FaUserPlus /> connect
-                </>
-            ) : (
-                <>
-                    <FaUserMinus /> disconnect
-                </>
-            )}
+    return !isConnectionExist ? (
+        <Button onClick={toggleConnection} disabled={isLoading} $flex>
+            <FaUserPlus /> connect
         </Button>
+    ) : (
+        <AlertButton onClick={toggleConnection} disabled={isLoading} $flex>
+            <FaUserMinus /> disconnect
+        </AlertButton>
     );
 };
 

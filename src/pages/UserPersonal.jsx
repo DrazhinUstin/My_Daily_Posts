@@ -71,7 +71,7 @@ const UserPersonal = () => {
             </GridList>
             {uid === auth.currentUser.uid && (
                 <div style={{ marginTop: '2rem', textAlign: 'right' }}>
-                    <Button as={Link} to='/settings/personal' flex>
+                    <Button as={Link} to='/settings/personal' $flex>
                         <FaPenAlt />
                         edit personal
                     </Button>

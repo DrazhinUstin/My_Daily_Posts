@@ -14,7 +14,7 @@ const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
                 <Title>{displayName}</Title>
             </div>
             {uid === auth.currentUser.uid ? (
-                <Button as={Link} to='/settings/profile' flex>
+                <Button as={Link} to='/settings/profile' $flex>
                     <FaUserEdit /> edit profile
                 </Button>
             ) : (

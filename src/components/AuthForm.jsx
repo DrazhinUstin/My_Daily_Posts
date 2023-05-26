@@ -7,7 +7,8 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import { GridForm, Title, Input, Button, TextButton } from '../styled';
+import { FormField } from '.';
+import { GridForm, Title, Button, TextButton } from '../styled';
 import { toast } from 'react-toastify';
 
 const AuthForm = () => {
@@ -45,31 +46,29 @@ const AuthForm = () => {
         <GridForm onSubmit={handleSubmit}>
             <Title>{isSignInForm ? 'sign in' : 'sign up'}</Title>
             {!isSignInForm && (
-                <Input
+                <FormField
                     name='displayName'
                     value={values.displayName}
                     onChange={handleChange}
                     disabled={isLoading}
-                    placeholder='Username'
                     required
+                    labelText='Username:'
                 />
             )}
-            <Input
+            <FormField
                 type='email'
                 name='email'
                 value={values.email}
                 onChange={handleChange}
                 disabled={isLoading}
-                placeholder='Email'
                 required
             />
-            <Input
+            <FormField
                 type='password'
                 name='password'
                 value={values.password}
                 onChange={handleChange}
                 disabled={isLoading}
-                placeholder='Password'
                 required
             />
             {isSignInForm && (

@@ -1,28 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import CustomDatePicker from './CustomDatePicker';
-import { GridForm, Title, Input, Button } from '../styled';
+import { useAuthContext } from '../contexts/AuthContext';
+import { CustomDatePicker, FormField } from '.';
+import { GridForm, Title, Button } from '../styled';
 
 const UpdatePersonalForm = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [values, setValues] = useState({
-        birthday: '',
-        gender: '',
-        bio: '',
-        location: '',
-        job: '',
-        website: '',
-    });
-
-    useEffect(() => {
-        setIsLoading(true);
-        getDoc(doc(db, `users/${auth.currentUser.uid}`))
-            .then((docSnap) => setValues((values) => docSnap.data().personal || values))
-            .catch((error) => toast.error(error.message))
-            .finally(() => setIsLoading(false));
-    }, []);
+    const { userData } = useAuthContext();
+    const [isLoading, setIsLoading] = useState(false);
+    const [values, setValues] = useState(
+        userData?.personal || {
+            birthday: '',
+            gender: '',
+            bio: '',
+            location: '',
+            job: '',
+            website: '',
+        }
+    );
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,68 +46,47 @@ const UpdatePersonalForm = () => {
                     disabled={isLoading}
                 />
             </div>
-            <div>
-                <label htmlFor='gender'>Gender:</label>
-                <Input
-                    as='select'
-                    id='gender'
-                    name='gender'
-                    value={values.gender}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                >
-                    <option value=''>Don't specify</option>
-                    <option value='male'>Male</option>
-                    <option value='female'>Female</option>
-                </Input>
-            </div>
-            <div>
-                <label htmlFor='bio'>Bio:</label>
-                <Input
-                    as='textarea'
-                    id='bio'
-                    name='bio'
-                    value={values.bio}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                    maxLength={100}
-                    placeholder='Write about yourself'
-                />
-            </div>
-            <div>
-                <label htmlFor='location'>Location:</label>
-                <Input
-                    id='location'
-                    name='location'
-                    value={values.location}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                    placeholder='Specify your location'
-                />
-            </div>
-            <div>
-                <label htmlFor='job'>Job:</label>
-                <Input
-                    id='job'
-                    name='job'
-                    value={values.job}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                    placeholder='Specify your job'
-                />
-            </div>
-            <div>
-                <label htmlFor='website'>Website:</label>
-                <Input
-                    type='url'
-                    id='website'
-                    name='website'
-                    value={values.website}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                    placeholder='https://example.com'
-                />
-            </div>
+            <FormField
+                name='gender'
+                value={values.gender}
+                onChange={handleChange}
+                disabled={isLoading}
+            >
+                <option value=''>Don't specify</option>
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+            </FormField>
+            <FormField
+                as='textarea'
+                name='bio'
+                value={values.bio}
+                onChange={handleChange}
+                disabled={isLoading}
+                maxLength={100}
+                placeholder='Write about yourself'
+            />
+            <FormField
+                name='location'
+                value={values.location}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder='Specify your location'
+            />
+            <FormField
+                name='job'
+                value={values.job}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder='Specify your job'
+            />
+            <FormField
+                type='url'
+                name='website'
+                value={values.website}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder='https://example.com'
+            />
             <Button type='submit' disabled={isLoading}>
                 submit
             </Button>

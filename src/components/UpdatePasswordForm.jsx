@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 import { auth } from '../firebase';
-import { GridForm, Title, Input, TextButton, Button } from '../styled';
+import { FormField } from '.';
+import { GridForm, Title, TextButton, Button } from '../styled';
 
 const UpdatePasswordForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -27,19 +28,19 @@ const UpdatePasswordForm = () => {
     return (
         <GridForm onSubmit={handleSubmit}>
             <Title>update password</Title>
-            <Input
+            <FormField
                 type='password'
                 name='old_password'
-                placeholder='Old password'
                 disabled={isLoading}
                 required
+                labelText='Old password:'
             />
-            <Input
+            <FormField
                 type='password'
                 name='new_password'
-                placeholder='New password'
                 disabled={isLoading}
                 required
+                labelText='New password:'
             />
             <p>
                 <TextButton as={Link} to='/reset_password'>

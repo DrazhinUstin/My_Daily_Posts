@@ -7,8 +7,8 @@ export default styled.article`
     display: grid;
     row-gap: 1rem;
     padding: 1rem;
-    border: 1px solid var(--clr-gray);
     border-radius: var(--radius);
+    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
     .header {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -38,7 +38,10 @@ export default styled.article`
             width: max-content;
             display: grid;
             border-radius: var(--radius);
-            background-color: var(--clr-black);
+            overflow: hidden;
+            button {
+                border-radius: 0;
+            }
         }
     }
     & > img {

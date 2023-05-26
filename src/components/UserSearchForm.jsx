@@ -13,7 +13,7 @@ const UserSearchForm = ({ isLoading, search, setSearch }) => {
             <Input name='search' placeholder='Enter username' disabled={isLoading} required />
             {search && (
                 <div>
-                    <Button onClick={() => setSearch('')} flex style={{ textTransform: 'unset' }}>
+                    <Button onClick={() => setSearch('')} $flex style={{ textTransform: 'unset' }}>
                         {search} <FaTimesCircle />
                     </Button>
                 </div>

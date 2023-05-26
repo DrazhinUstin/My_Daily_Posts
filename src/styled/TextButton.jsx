@@ -4,7 +4,7 @@ const TextButton = styled.button.attrs((props) => ({ type: props.type || 'button
     display: inline-block;
     border: none;
     background-color: transparent;
-    color: var(--clr-black);
+    color: var(--clr-blue);
     font-family: var(--font-family);
     font-size: 1rem;
     font-weight: 500;

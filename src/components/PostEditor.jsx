@@ -7,7 +7,7 @@ import { doc, collection, setDoc, updateDoc, serverTimestamp } from 'firebase/fi
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, auth, storage } from '../firebase';
 import { usePostContext } from '../contexts/PostContext';
-import { Substrate, PostEditor as Editor, Button } from '../styled';
+import { Substrate, PostEditor as Editor, Button, AlertButton } from '../styled';
 
 const PostEditor = () => {
     const { editablePost, dispatch } = usePostContext();
@@ -74,13 +74,13 @@ const PostEditor = () => {
     return (
         <Substrate>
             <Editor>
-                <Button
+                <AlertButton
                     className='close-btn'
-                    icon
+                    $icon
                     onClick={() => dispatch({ type: 'CLOSE_EDITOR' })}
                 >
                     <FaTimes />
-                </Button>
+                </AlertButton>
                 <ReactQuill
                     theme='snow'
                     value={message}

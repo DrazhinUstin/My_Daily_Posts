@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Input = styled.input.attrs((props) => ({ type: props.type || 'text' }))`
+const Input = styled.input.attrs((props) => ({ type: props.type || 'text', autoComplete: 'on' }))`
     padding: 0.375rem;
     border: 1px solid var(--clr-gray);
     border-radius: var(--radius);

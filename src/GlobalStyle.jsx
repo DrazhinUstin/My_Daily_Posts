@@ -14,7 +14,8 @@ const GlobalStyle = createGlobalStyle`
         --clr-white: #fff;
         --clr-rgb-white: 255, 255, 255;
         --clr-gray: #ccc;
-        --clr-blue: royalblue;
+        --clr-blue: #4169e1;
+        --clr-red: #dd3535;
         --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
@@ -85,6 +86,7 @@ const GlobalStyle = createGlobalStyle`
     select, 
     textarea {
         &:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
         }
     }
