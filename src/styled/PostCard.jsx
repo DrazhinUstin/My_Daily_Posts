@@ -48,4 +48,19 @@ export default styled.article`
         width: 100%;
         border-radius: var(--radius);
     }
+    footer {
+        padding-top: 1rem;
+        border-top: 1px solid var(--clr-gray);
+        .likes {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            column-gap: 0.25rem;
+            border: none;
+            background-color: transparent;
+            color: var(--clr-red);
+            font-family: var(--font-family);
+            font-size: 1rem;
+        }
+    }
 `;

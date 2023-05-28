@@ -8,7 +8,7 @@ import { CreatePost, PostEditor, PostCard } from '../components';
 import { Button } from '../styled';
 
 const UserPosts = ({ initialLimit = 10 }) => {
-    const { uid } = useOutletContext();
+    const { uid, displayName, photoURL } = useOutletContext();
     const { isEditorOpen } = usePostContext() || {};
     const [posts, setPosts] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
@@ -37,7 +37,7 @@ const UserPosts = ({ initialLimit = 10 }) => {
             )}
             <div style={{ display: 'grid', rowGap: '2rem' }}>
                 {posts.map((post, index) => (
-                    <PostCard key={index} post={post} />
+                    <PostCard key={index} post={{ ...post, displayName, photoURL }} />
                 ))}
             </div>
             {posts.length === currentLimit && (
