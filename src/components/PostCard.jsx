@@ -1,9 +1,12 @@
+import { useState } from 'react';
+import { FaComments, FaRegComments } from 'react-icons/fa';
 import { auth } from '../firebase';
 import { formatTimestamp } from '../utils/helpers';
-import { PostCardMenu, PostCardLikes } from './';
+import { PostCardMenu, PostCardLikes, PostCardComments } from './';
 import { PostCard as Card, Avatar } from '../styled';
 
 const PostCard = ({ post }) => {
+    const [areCommentsOpen, setAreCommentsOpen] = useState(false);
     return (
         <Card>
             <header className='header'>
@@ -20,7 +23,15 @@ const PostCard = ({ post }) => {
             {post.imageURL && <img src={post.imageURL} alt='post_image' />}
             <footer>
                 <PostCardLikes postID={post.id} likes={post.likes} />
+                <button
+                    className='comment-btn'
+                    onClick={() => setAreCommentsOpen(!areCommentsOpen)}
+                >
+                    {post.commentsAmount}
+                    {areCommentsOpen ? <FaComments /> : <FaRegComments />}
+                </button>
             </footer>
+            {areCommentsOpen && <PostCardComments postID={post.id} />}
         </Card>
     );
 };

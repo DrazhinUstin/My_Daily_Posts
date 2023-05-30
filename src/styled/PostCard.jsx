@@ -49,9 +49,13 @@ export default styled.article`
         border-radius: var(--radius);
     }
     footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding-top: 1rem;
         border-top: 1px solid var(--clr-gray);
-        .likes {
+        .likes,
+        .comment-btn {
             display: grid;
             grid-template-columns: auto 1fr;
             align-items: center;
@@ -61,6 +65,12 @@ export default styled.article`
             color: var(--clr-red);
             font-family: var(--font-family);
             font-size: 1rem;
+        }
+        .comment-btn {
+            color: var(--clr-blue);
+            svg {
+                font-size: 1.375rem;
+            }
         }
     }
 `;
