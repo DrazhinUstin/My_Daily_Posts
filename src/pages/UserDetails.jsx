@@ -7,7 +7,6 @@ import { ProfileHeader, UserLinks } from '../components';
 
 const UserDetails = () => {
     const { uid } = useParams();
-    const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
@@ -19,11 +18,7 @@ const UserDetails = () => {
         return () => unsubscribe();
     }, [uid]);
 
-    useEffect(() => {
-        if (userData) setIsLoading(false);
-    }, [userData]);
-
-    if (isLoading) return <h2 className='text-center'>loading...</h2>;
+    if (!userData) return <h2 className='text-center'>loading...</h2>;
 
     return (
         <main className='main'>

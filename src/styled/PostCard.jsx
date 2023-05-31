@@ -9,7 +9,7 @@ export default styled.article`
     padding: 1rem;
     border-radius: var(--radius);
     box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
-    .header {
+    & > header {
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: center;
@@ -48,7 +48,7 @@ export default styled.article`
         width: 100%;
         border-radius: var(--radius);
     }
-    footer {
+    & > footer {
         display: flex;
         justify-content: space-between;
         align-items: center;

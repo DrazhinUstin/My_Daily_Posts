@@ -1,33 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaPaperPlane, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { doc, collection, runTransaction, serverTimestamp } from 'firebase/firestore';
+import { doc, collection, runTransaction, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Input, Button } from '../styled';
 import styled from 'styled-components';
 
-const CommentForm = ({ postID }) => {
+const CommentForm = ({ postID, editableComment, setEditableComment }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (!editableComment) return;
+        setMessage(editableComment.message);
+        inputRef.current.focus();
+    }, [editableComment]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const postRef = doc(db, 'posts', postID);
-            const commentRef = doc(collection(postRef, 'comments'));
-            await runTransaction(db, async (transaction) => {
-                const postDoc = await transaction.get(postRef);
-                const commentsAmount = (postDoc.data().commentsAmount || 0) + 1;
-                transaction.update(postRef, { commentsAmount });
-                transaction.set(commentRef, {
-                    uid: auth.currentUser.uid,
-                    displayName: auth.currentUser.displayName,
-                    photoURL: auth.currentUser.photoURL,
+            if (editableComment) {
+                await updateDoc(doc(db, `posts/${postID}/comments/${editableComment.id}`), {
                     message,
-                    timestamp: serverTimestamp(),
                 });
-            });
+                setEditableComment(null);
+            } else {
+                const postRef = doc(db, 'posts', postID);
+                const commentRef = doc(collection(postRef, 'comments'));
+                await runTransaction(db, async (transaction) => {
+                    const postDoc = await transaction.get(postRef);
+                    const commentsAmount = (postDoc.data().commentsAmount || 0) + 1;
+                    transaction.update(postRef, { commentsAmount });
+                    transaction.set(commentRef, {
+                        uid: auth.currentUser.uid,
+                        displayName: auth.currentUser.displayName,
+                        photoURL: auth.currentUser.photoURL,
+                        message,
+                        timestamp: serverTimestamp(),
+                    });
+                });
+            }
             setMessage('');
         } catch (error) {
             toast.error(error.message);
@@ -44,9 +58,10 @@ const CommentForm = ({ postID }) => {
                 placeholder='Type a comment...'
                 maxLength={100}
                 required
+                ref={inputRef}
             />
             <Button type='submit' disabled={isLoading}>
-                <FaPaperPlane />
+                {editableComment ? <FaEdit /> : <FaPaperPlane />}
             </Button>
         </Form>
     );

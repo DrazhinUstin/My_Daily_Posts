@@ -8,6 +8,7 @@ import { Button } from '../styled';
 const PostCardComments = ({ postID, initialLimit = 10 }) => {
     const [comments, setComments] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
+    const [editableComment, setEditableComment] = useState(null);
 
     useEffect(() => {
         const unsubscribe = onSnapshot(
@@ -26,7 +27,13 @@ const PostCardComments = ({ postID, initialLimit = 10 }) => {
         <div>
             <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
                 {comments.map((comment, index) => (
-                    <CommentCard key={index} {...comment} />
+                    <CommentCard
+                        key={index}
+                        postID={postID}
+                        {...comment}
+                        editableComment={editableComment}
+                        setEditableComment={setEditableComment}
+                    />
                 ))}
                 {comments.length === currentLimit && (
                     <div style={{ textAlign: 'center' }}>
@@ -36,7 +43,11 @@ const PostCardComments = ({ postID, initialLimit = 10 }) => {
                     </div>
                 )}
             </div>
-            <CommentForm postID={postID} />
+            <CommentForm
+                postID={postID}
+                editableComment={editableComment}
+                setEditableComment={setEditableComment}
+            />
         </div>
     );
 };

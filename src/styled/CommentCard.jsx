@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export default styled.article`
     display: flex;
@@ -7,20 +7,35 @@ export default styled.article`
         margin-bottom: 0.75rem;
     }
     .container {
-        min-width: 10rem;
+        min-width: 12.5rem;
         display: grid;
         gap: 0.25rem;
         padding: 0.5rem;
         border-radius: var(--radius);
         background-color: var(--clr-gray);
-    }
-    h4 {
-        color: var(--clr-blue);
-        font-weight: 500;
-        letter-spacing: unset;
-    }
-    .date {
-        text-align: right;
-        font-size: 0.85rem;
+        ${(props) =>
+            props.isEditable &&
+            css`
+                box-shadow: inset 0 0 0 2px var(--clr-blue);
+            `}
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            column-gap: 0.5rem;
+            h4 {
+                color: var(--clr-blue);
+                font-weight: 500;
+                letter-spacing: unset;
+            }
+            .controls {
+                display: flex;
+                column-gap: 0.25rem;
+            }
+        }
+        .date {
+            text-align: right;
+            font-size: 0.85rem;
+        }
     }
 `;

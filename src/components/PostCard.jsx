@@ -9,7 +9,7 @@ const PostCard = ({ post }) => {
     const [areCommentsOpen, setAreCommentsOpen] = useState(false);
     return (
         <Card>
-            <header className='header'>
+            <header>
                 <div className='user'>
                     <Avatar src={post.photoURL} />
                     <div>
