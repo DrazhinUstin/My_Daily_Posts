@@ -3,7 +3,7 @@ import { useParams, Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, doc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { ProfileHeader, UserLinks } from '../components';
+import { Loader, ProfileHeader, UserLinks } from '../components';
 
 const UserDetails = () => {
     const { uid } = useParams();
@@ -18,7 +18,7 @@ const UserDetails = () => {
         return () => unsubscribe();
     }, [uid]);
 
-    if (!userData) return <h2 className='text-center'>loading...</h2>;
+    if (!userData) return <Loader fullscreen />;
 
     return (
         <main className='main'>
