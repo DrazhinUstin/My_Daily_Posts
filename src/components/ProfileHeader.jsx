@@ -32,9 +32,11 @@ const Header = styled.header`
     justify-content: space-between;
     align-items: flex-end;
     gap: 1rem;
+    margin: 0 auto;
     padding: 1rem;
     border-radius: var(--radius);
-    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
+    box-shadow: var(--main-shadow);
+    background-color: var(--clr-white);
     .info {
         display: grid;
         grid-template-columns: auto 1fr;

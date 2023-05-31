@@ -9,7 +9,7 @@ const Input = styled.input.attrs((props) => ({ type: props.type || 'text', autoC
     font-family: var(--font-family);
     font-size: 1rem;
     &::placeholder {
-        color: var(--clr-gray);
+        color: var(--clr-dark-gray);
     }
     &:focus {
         outline: none;

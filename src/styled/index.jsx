@@ -1,6 +1,6 @@
 export { default as GridForm } from './GridForm';
 export { default as Input } from './Input';
-export { default as Button, AlertButton } from './Button';
+export { default as Button, GreenButton, AlertButton } from './Button';
 export { default as TextButton } from './TextButton';
 export { default as Title } from './Title';
 export { default as Avatar } from './Avatar';

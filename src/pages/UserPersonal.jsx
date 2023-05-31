@@ -85,8 +85,11 @@ export default UserPersonal;
 
 const Wrapper = styled.section`
     max-width: 600px;
+    margin: 0 auto;
     padding: 1rem;
-    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
+    border-radius: var(--radius);
+    box-shadow: var(--main-shadow);
+    background-color: var(--clr-white);
     ${GridList} {
         .flex {
             display: flex;

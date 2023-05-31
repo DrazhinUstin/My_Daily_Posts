@@ -12,7 +12,7 @@ export default styled.article`
         gap: 0.25rem;
         padding: 0.5rem;
         border-radius: var(--radius);
-        background-color: var(--clr-gray);
+        background-color: var(--clr-light-blue-2);
         ${(props) =>
             props.isEditable &&
             css`

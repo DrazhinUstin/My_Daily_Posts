@@ -59,6 +59,10 @@ const Button = styled.button.attrs((props) => ({ type: props.type || 'button' })
 
 export default Button;
 
+export const GreenButton = styled(Button)`
+    background-color: var(--clr-green);
+`;
+
 export const AlertButton = styled(Button)`
     background-color: var(--clr-red);
 `;

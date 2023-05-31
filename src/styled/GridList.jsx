@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const GridList = styled.ul`
     display: grid;
+    justify-content: ${(props) => props.justify};
     row-gap: 1rem;
     li {
         display: grid;

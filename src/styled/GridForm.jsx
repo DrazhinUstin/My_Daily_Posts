@@ -7,7 +7,9 @@ const GridForm = styled.form`
     row-gap: 1rem;
     margin: ${(props) => props.margin};
     padding: ${(props) => props.padding || '1rem'};
-    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.1);
+    border-radius: var(--radius);
+    box-shadow: var(--main-shadow);
+    background-color: var(--clr-white);
     text-align: center;
     label {
         display: block;

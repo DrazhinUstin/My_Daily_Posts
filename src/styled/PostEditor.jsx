@@ -17,6 +17,9 @@ export default styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        label {
+            color: var(--clr-green);
+        }
     }
     img[alt='preview'] {
         width: 5rem;

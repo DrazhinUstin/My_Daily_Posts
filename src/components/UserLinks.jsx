@@ -17,30 +17,24 @@ export default UserLinks;
 
 const Wrapper = styled.nav`
     display: flex;
-    column-gap: 0.5rem;
+    justify-content: center;
+    column-gap: 0.25rem;
     margin: 2rem 0;
     a {
+        min-width: 6rem;
         position: relative;
         display: inline-block;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem;
         border-radius: 1rem 1rem 0 0;
-        background-color: var(--clr-gray);
-        color: var(--clr-black);
+        background-color: var(--clr-white);
+        color: var(--clr-blue);
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         font-weight: 500;
         text-transform: capitalize;
         &.active {
-            color: var(--clr-blue);
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 3px;
-                background-color: var(--clr-blue);
-            }
+            background-color: var(--clr-blue);
+            color: var(--clr-white);
         }
     }
 `;

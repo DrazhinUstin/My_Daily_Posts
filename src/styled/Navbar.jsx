@@ -4,8 +4,8 @@ import { breakpoints } from '../GlobalStyle';
 export default styled.nav`
     position: sticky;
     top: 0;
-    background-color: var(--clr-white);
-    box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.2);
+    background-color: var(--clr-light-blue);
+    box-shadow: var(--main-shadow);
     z-index: 999;
     & > * {
         height: var(--navbar-height);
@@ -17,6 +17,7 @@ export default styled.nav`
         display: none;
         border: none;
         background-color: transparent;
+        color: var(--clr-blue);
         font-size: 1.2rem;
         transition: var(--trans-ease);
         &.rotate {
@@ -31,7 +32,7 @@ export default styled.nav`
         a {
             position: relative;
             height: var(--navbar-height);
-            display: inline-flex;
+            display: flex;
             align-items: center;
             column-gap: 0.5rem;
             padding: 0 0.5rem;
@@ -42,7 +43,7 @@ export default styled.nav`
                 font-size: 1.5rem;
             }
             &.active {
-                color: royalblue;
+                color: var(--clr-blue);
                 &::after {
                     content: '';
                     position: absolute;
@@ -50,7 +51,7 @@ export default styled.nav`
                     left: 0;
                     width: 100%;
                     height: 3px;
-                    background-color: royalblue;
+                    background-color: var(--clr-blue);
                 }
             }
         }
@@ -62,8 +63,10 @@ export default styled.nav`
             width: 200px;
             transform: translateX(-100%);
             flex-direction: column;
+            justify-content: space-around;
             align-items: center;
             background-color: var(--clr-white);
+            box-shadow: var(--main-shadow);
             transition: var(--trans-ease);
             transition-property: transform;
             &.open {
@@ -87,7 +90,7 @@ export default styled.nav`
             width: max-content;
             border-radius: var(--radius);
             background-color: var(--clr-white);
-            box-shadow: 0 10px 15px rgba(var(--clr-rgb-black), 0.2);
+            box-shadow: var(--main-shadow);
             a,
             button {
                 display: flex;
@@ -98,6 +101,7 @@ export default styled.nav`
                 color: var(--clr-black);
                 text-transform: capitalize;
                 svg {
+                    color: var(--clr-blue);
                     font-size: 1.2rem;
                 }
             }
@@ -106,6 +110,9 @@ export default styled.nav`
                 background-color: transparent;
                 font-family: var(--font-family);
                 font-size: 1rem;
+                svg {
+                    color: var(--clr-red);
+                }
             }
         }
     }

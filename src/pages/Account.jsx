@@ -10,9 +10,9 @@ const Account = () => {
         metadata: { creationTime, lastSignInTime },
     } = auth.currentUser;
     return (
-        <section>
+        <section className='content-card'>
             <Title margin='0 0 2rem'>account details</Title>
-            <GridList align='center'>
+            <GridList justify='center' align='center'>
                 <li>
                     Avatar: <Avatar src={photoURL} />
                 </li>

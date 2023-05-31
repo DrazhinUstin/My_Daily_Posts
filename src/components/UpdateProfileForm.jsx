@@ -5,7 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, storage, db } from '../firebase';
 import { FormField } from '.';
-import { GridForm, Title, Button } from '../styled';
+import { GridForm, Title, Button, GreenButton } from '../styled';
 
 const UpdateProfileForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -65,9 +65,9 @@ const UpdateProfileForm = () => {
                 required
                 labelText='Username:'
             />
-            <Button onClick={(e) => e.target.nextElementSibling.click()} disabled={isLoading}>
+            <GreenButton onClick={(e) => e.target.nextElementSibling.click()} disabled={isLoading}>
                 change avatar
-            </Button>
+            </GreenButton>
             <input type='file' name='file' accept='image/*' onChange={handleChange} hidden />
             {values.file && (
                 <img

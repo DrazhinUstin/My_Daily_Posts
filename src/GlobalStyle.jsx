@@ -9,13 +9,19 @@ export const breakpoints = {
 
 const GlobalStyle = createGlobalStyle`
     :root {
-        --clr-black: #000;
-        --clr-rgb-black: 0, 0, 0;
+        --clr-black: #333333 ;
+        --clr-rgb-black: 33, 33, 33;
         --clr-white: #fff;
         --clr-rgb-white: 255, 255, 255;
+        --clr-light-gray: #ebebeb;
         --clr-gray: #ccc;
+        --clr-dark-gray: #9e9e9e;
+        --clr-light-blue: #f0f5ff;
+        --clr-light-blue-2: #dce5ff;
         --clr-blue: #4169e1;
         --clr-red: #dd3535;
+        --clr-green: #2da715;
+        --main-shadow: 0 5px 10px rgba(17, 61, 149, 0.2);
         --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         --spacing: 0.1rem;
@@ -35,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     }
     
     body {
-        background-color: var(--clr-white);
+        background-color: var(--clr-light-blue);
         color: var(--clr-black);
         font-family: var(--font-family);
         font-size: 1rem;
@@ -100,6 +106,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .main {
+        min-height: calc(100vh - var(--navbar-height) - 8rem);
         max-width: var(--max-content-width);
         width: 90vw;
         margin: 4rem auto;
@@ -118,6 +125,15 @@ const GlobalStyle = createGlobalStyle`
 
     .text-center {
         text-align: center;
+    }
+
+    .content-card {
+        max-width: 600px;
+        width: 100%;
+        padding: 1rem;
+        border-radius: var(--radius);
+        box-shadow: var(--main-shadow);
+        background-color: var(--clr-white);
     }
 `;
 
