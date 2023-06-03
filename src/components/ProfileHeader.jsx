@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import { auth } from '../firebase';
-import ConnectionBtn from './ConnectionBtn';
+import { ConnectionBtn, MessageBtn } from '.';
 import { Avatar, Title, Button } from '../styled';
 import { breakpoints } from '../GlobalStyle';
 import styled from 'styled-components';
@@ -18,7 +18,10 @@ const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
                     <FaUserEdit /> edit profile
                 </Button>
             ) : (
-                <ConnectionBtn uid={uid} connections={connections} />
+                <div className='btns'>
+                    <ConnectionBtn uid={uid} connections={connections} />
+                    <MessageBtn uid={uid} />
+                </div>
             )}
         </Header>
     );
@@ -42,6 +45,11 @@ const Header = styled.header`
         grid-template-columns: auto 1fr;
         align-items: center;
         gap: 1em;
+    }
+    .btns {
+        flex-shrink: 0;
+        display: flex;
+        column-gap: 0.5rem;
     }
     @media ${breakpoints.sm} {
         flex-direction: column;
