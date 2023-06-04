@@ -1,7 +1,7 @@
 import {
     FaHome,
     FaUsers,
-    FaNewspaper,
+    FaComments,
     FaCog,
     FaUser,
     FaEnvelope,
@@ -24,9 +24,9 @@ export const navbarLinks = [
     },
     {
         id: 3,
-        icon: <FaNewspaper />,
-        name: 'feed',
-        path: '/feed',
+        icon: <FaComments />,
+        name: 'chats',
+        path: '/chats',
     },
 ];
 

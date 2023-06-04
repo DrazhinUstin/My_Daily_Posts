@@ -9,3 +9,4 @@ export { default as Substrate } from './Substrate';
 export { default as PostEditor } from './PostEditor';
 export { default as PostCard } from './PostCard';
 export { default as CommentCard } from './CommentCard';
+export { default as ChatList } from './ChatList';

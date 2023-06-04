@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
     Home,
     Users,
+    Chats,
     UserDetails,
     UserPosts,
     UserPersonal,
@@ -43,6 +44,7 @@ const App = () => {
                             <Route path='connections' element={<UserConnections />} />
                         </Route>
                         <Route path='users' element={<Users />} />
+                        <Route path='chats' element={<Chats />} />
                         <Route path='user/:uid' element={<UserDetails />}>
                             <Route index element={<UserPosts />} />
                             <Route path='personal' element={<UserPersonal />} />
