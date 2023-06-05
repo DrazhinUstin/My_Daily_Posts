@@ -10,3 +10,5 @@ export { default as PostEditor } from './PostEditor';
 export { default as PostCard } from './PostCard';
 export { default as CommentCard } from './CommentCard';
 export { default as ChatList } from './ChatList';
+export { default as ChatDetails } from './ChatDetails';
+export { default as MessageCard } from './MessageCard';

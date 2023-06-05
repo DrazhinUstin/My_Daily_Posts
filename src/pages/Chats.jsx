@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, query, collection, where } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -26,6 +27,7 @@ const Chats = () => {
     return (
         <Wrapper className='main'>
             <ChatList chats={chatList} />
+            <Outlet context={chatList} />
         </Wrapper>
     );
 };
@@ -36,4 +38,5 @@ const Wrapper = styled.main`
     display: grid;
     grid-template-columns: 20rem 1fr;
     align-items: flex-start;
+    gap: 2rem;
 `;

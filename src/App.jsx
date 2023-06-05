@@ -3,6 +3,7 @@ import {
     Home,
     Users,
     Chats,
+    ChatDetails,
     UserDetails,
     UserPosts,
     UserPersonal,
@@ -44,7 +45,9 @@ const App = () => {
                             <Route path='connections' element={<UserConnections />} />
                         </Route>
                         <Route path='users' element={<Users />} />
-                        <Route path='chats' element={<Chats />} />
+                        <Route path='chats' element={<Chats />}>
+                            <Route path=':id' element={<ChatDetails />} />
+                        </Route>
                         <Route path='user/:uid' element={<UserDetails />}>
                             <Route index element={<UserPosts />} />
                             <Route path='personal' element={<UserPersonal />} />
