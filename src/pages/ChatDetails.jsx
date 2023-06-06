@@ -3,7 +3,7 @@ import { useParams, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, query, collection, orderBy, limit } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import { MessageCard } from '../components';
+import { MessageCard, MessageForm } from '../components';
 import { ChatDetails as Container, Button } from '../styled';
 
 const ChatDetails = ({ initialLimit = 10 }) => {
@@ -16,10 +16,10 @@ const ChatDetails = ({ initialLimit = 10 }) => {
         const unsubscribe = onSnapshot(
             query(
                 collection(db, `chats/${id}/messages`),
-                orderBy('timestamp'),
+                orderBy('timestamp', 'desc'),
                 limit(currentLimit)
             ),
-            ({ docs }) => setMessages(docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
+            ({ docs }) => setMessages(docs.map((doc) => ({ id: doc.id, ...doc.data() })).reverse()),
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
@@ -39,6 +39,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
                     return <MessageCard key={index} {...{ ...item, displayName, photoURL }} />;
                 })}
             </section>
+            <MessageForm chatID={id} uid={currentChat.uid} />
         </Container>
     );
 };

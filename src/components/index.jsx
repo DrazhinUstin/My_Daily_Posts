@@ -10,6 +10,7 @@ export { default as PostEditor } from './PostEditor';
 export { default as UserSearchForm } from './UserSearchForm';
 export { default as UserCard } from './UserCard';
 export { default as MessageCard } from './MessageCard';
+export { default as MessageForm } from './MessageForm';
 export { default as ProfileHeader } from './ProfileHeader';
 export { default as ConnectionBtn } from './ConnectionBtn';
 export { default as MessageBtn } from './MessageBtn';

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
+    display: grid;
+    row-gap: 1rem;
     .messages {
         display: grid;
         row-gap: 1rem;

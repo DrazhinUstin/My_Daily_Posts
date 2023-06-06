@@ -1,4 +1,5 @@
 export { default as GridForm } from './GridForm';
+export { default as FlexForm } from './FlexForm';
 export { default as Input } from './Input';
 export { default as Button, GreenButton, AlertButton } from './Button';
 export { default as TextButton } from './TextButton';

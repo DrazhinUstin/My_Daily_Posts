@@ -14,6 +14,11 @@ export default styled.article`
     h4 {
         letter-spacing: unset;
     }
+    h4 ~ img {
+        width: 15rem;
+        margin: 0.5rem 0;
+        border-radius: var(--radius);
+    }
     .date {
         color: var(--clr-dark-gray);
         text-align: right;
