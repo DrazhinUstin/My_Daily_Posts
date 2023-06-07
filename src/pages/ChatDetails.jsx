@@ -11,6 +11,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
     const currentChat = useOutletContext().find((chat) => id.includes(chat.uid));
     const [messages, setMessages] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
+    const [editableMessage, setEditableMessage] = useState(null);
 
     useEffect(() => {
         const unsubscribe = onSnapshot(
@@ -36,10 +37,23 @@ const ChatDetails = ({ initialLimit = 10 }) => {
                 {messages.map((item, index) => {
                     const { displayName, photoURL } =
                         item.uid === auth.currentUser.uid ? auth.currentUser : currentChat;
-                    return <MessageCard key={index} {...{ ...item, displayName, photoURL }} />;
+                    return (
+                        <MessageCard
+                            key={index}
+                            {...{ ...item, displayName, photoURL }}
+                            isLastMessage={index === messages.length - 1}
+                            editableMessage={editableMessage}
+                            setEditableMessage={setEditableMessage}
+                        />
+                    );
                 })}
             </section>
-            <MessageForm chatID={id} uid={currentChat.uid} />
+            <MessageForm
+                chatID={id}
+                uid={currentChat.uid}
+                editableMessage={editableMessage}
+                setEditableMessage={setEditableMessage}
+            />
         </Container>
     );
 };

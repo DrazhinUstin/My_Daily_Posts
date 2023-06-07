@@ -1,16 +1,24 @@
-import { useState } from 'react';
-import { FaPaperPlane, FaImage } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import { FaPaperPlane, FaEdit, FaImage } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { doc, collection, runTransaction, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
 import { FlexForm, Input, Button, GreenButton } from '../styled';
 
-const MessageForm = ({ chatID, uid }) => {
+const MessageForm = ({ chatID, uid, editableMessage, setEditableMessage }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [values, setValues] = useState({ message: '', file: '' });
+    const inputRef = useRef(null);
 
-    const handleSubmit = async (e) => {
+    useEffect(() => {
+        if (editableMessage) {
+            setValues({ message: editableMessage.message, file: '' });
+            inputRef.current.focus();
+        }
+    }, [editableMessage]);
+
+    const addMessage = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         try {
@@ -45,6 +53,39 @@ const MessageForm = ({ chatID, uid }) => {
         setIsLoading(false);
     };
 
+    const editMessage = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            const messageRef = doc(db, `chats/${chatID}/messages/${editableMessage.id}`);
+            let imageURL = editableMessage.imageURL || null;
+            if (values.file) {
+                const storageRef = ref(storage, `chats/${chatID}/${messageRef.id}`);
+                await uploadBytes(storageRef, values.file);
+                imageURL = await getDownloadURL(storageRef);
+            }
+            await runTransaction(db, async (transaction) => {
+                transaction.update(messageRef, {
+                    message: values.message,
+                    imageURL,
+                });
+                if (editableMessage.isLastMessage) {
+                    transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
+                        [`chats.${uid}.message`]: values.message,
+                    });
+                    transaction.update(doc(db, `users/${uid}`), {
+                        [`chats.${auth.currentUser.uid}.message`]: values.message,
+                    });
+                }
+            });
+            setEditableMessage(null);
+            setValues({ message: '', file: '' });
+        } catch (error) {
+            toast.error(error.message);
+        }
+        setIsLoading(false);
+    };
+
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (name === 'file') {
@@ -66,7 +107,7 @@ const MessageForm = ({ chatID, uid }) => {
     };
 
     return (
-        <FlexForm onSubmit={handleSubmit}>
+        <FlexForm onSubmit={editableMessage ? editMessage : addMessage}>
             <Input
                 name='message'
                 value={values.message}
@@ -74,6 +115,7 @@ const MessageForm = ({ chatID, uid }) => {
                 disabled={isLoading}
                 maxLength={200}
                 placeholder='Write a message...'
+                ref={inputRef}
                 required
             />
             <input type='file' name='file' onChange={handleChange} accept='image/*' hidden />
@@ -91,7 +133,7 @@ const MessageForm = ({ chatID, uid }) => {
                 )}
             </GreenButton>
             <Button type='submit' disabled={isLoading}>
-                <FaPaperPlane />
+                {editableMessage ? <FaEdit /> : <FaPaperPlane />}
             </Button>
         </FlexForm>
     );
