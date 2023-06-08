@@ -40,6 +40,8 @@ const ChatDetails = ({ initialLimit = 10 }) => {
                     return (
                         <MessageCard
                             key={index}
+                            chatID={id}
+                            chatUID={currentChat.uid}
                             {...{ ...item, displayName, photoURL }}
                             isLastMessage={index === messages.length - 1}
                             editableMessage={editableMessage}
