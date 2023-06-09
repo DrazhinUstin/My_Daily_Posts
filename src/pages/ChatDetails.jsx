@@ -3,7 +3,7 @@ import { useParams, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, query, collection, orderBy, limit } from 'firebase/firestore';
 import { db, auth } from '../firebase';
-import { MessageCard, MessageForm } from '../components';
+import { ChatHeader, MessageCard, MessageForm } from '../components';
 import { ChatDetails as Container, Button } from '../styled';
 
 const ChatDetails = ({ initialLimit = 10 }) => {
@@ -28,6 +28,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
 
     return (
         <Container>
+            <ChatHeader chat={currentChat} />
             <section className='messages'>
                 {messages.length === currentLimit && (
                     <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>

@@ -9,6 +9,7 @@ export { default as CommentForm } from './CommentForm';
 export { default as PostEditor } from './PostEditor';
 export { default as UserSearchForm } from './UserSearchForm';
 export { default as UserCard } from './UserCard';
+export { default as ChatHeader } from './ChatHeader';
 export { default as MessageCard } from './MessageCard';
 export { default as MessageForm } from './MessageForm';
 export { default as ProfileHeader } from './ProfileHeader';

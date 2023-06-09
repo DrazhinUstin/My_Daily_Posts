@@ -37,6 +37,7 @@ const MessageCard = ({
         setIsLoading(true);
         try {
             await deleteDoc(doc(db, `chats/${chatID}/messages/${id}`));
+            if (isEditable) setEditableMessage(null);
             if (imageURL) await deleteObject(ref(storage, `chats/${chatID}/${id}`));
             if (isLastMessage) {
                 const { docs } = await getDocs(
