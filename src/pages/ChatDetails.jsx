@@ -28,7 +28,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
 
     return (
         <Container>
-            <ChatHeader chat={currentChat} />
+            <ChatHeader chatID={id} chat={currentChat} />
             <section className='messages'>
                 {messages.length === currentLimit && (
                     <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>
