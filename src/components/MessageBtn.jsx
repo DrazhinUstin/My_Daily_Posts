@@ -24,22 +24,17 @@ const MessageBtn = ({ uid }) => {
                 if (!chatDoc.exists()) {
                     transaction.set(chatRef, {});
                 }
-                transaction.set(msgRef, {
-                    uid: auth.currentUser.uid,
+                const data = {
+                    senderID: auth.currentUser.uid,
                     message,
                     timestamp: serverTimestamp(),
-                });
+                };
+                transaction.set(msgRef, data);
                 transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                    [`chats.${uid}`]: {
-                        message,
-                        timestamp: serverTimestamp(),
-                    },
+                    [`chats.${uid}`]: data,
                 });
                 transaction.update(doc(db, `users/${uid}`), {
-                    [`chats.${auth.currentUser.uid}`]: {
-                        message,
-                        timestamp: serverTimestamp(),
-                    },
+                    [`chats.${auth.currentUser.uid}`]: data,
                 });
             });
             toast.success('Message was send!');

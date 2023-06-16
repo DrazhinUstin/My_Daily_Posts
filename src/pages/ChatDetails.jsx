@@ -37,7 +37,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
                 )}
                 {messages.map((item, index) => {
                     const { displayName, photoURL } =
-                        item.uid === auth.currentUser.uid ? auth.currentUser : currentChat;
+                        item.senderID === auth.currentUser.uid ? auth.currentUser : currentChat;
                     return (
                         <MessageCard
                             key={index}

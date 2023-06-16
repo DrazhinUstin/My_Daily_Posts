@@ -21,7 +21,7 @@ const MessageCard = ({
     chatID,
     chatUID,
     id,
-    uid,
+    senderID: uid,
     displayName,
     photoURL,
     message,
@@ -47,13 +47,15 @@ const MessageCard = ({
                         limit(1)
                     )
                 );
-                const lastMessage = docs[0]?.data()?.message || '';
+                const { senderID = null, message = '' } = docs[0]?.data() || {};
                 await runTransaction(db, async (transaction) => {
                     transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                        [`chats.${chatUID}.message`]: lastMessage,
+                        [`chats.${chatUID}.senderID`]: senderID,
+                        [`chats.${chatUID}.message`]: message,
                     });
                     transaction.update(doc(db, `users/${chatUID}`), {
-                        [`chats.${auth.currentUser.uid}.message`]: lastMessage,
+                        [`chats.${auth.currentUser.uid}.senderID`]: senderID,
+                        [`chats.${auth.currentUser.uid}.message`]: message,
                     });
                 });
             }

@@ -21,6 +21,7 @@ import {
     UpdatePasswordForm,
     UpdatePersonalForm,
 } from './components';
+import ChatList from './components/ChatList';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -46,6 +47,7 @@ const App = () => {
                         </Route>
                         <Route path='users' element={<Users />} />
                         <Route path='chats' element={<Chats />}>
+                            <Route index element={<ChatList />} />
                             <Route path=':id' element={<ChatDetails />} />
                         </Route>
                         <Route path='user/:uid' element={<UserDetails />}>

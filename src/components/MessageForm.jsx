@@ -30,20 +30,17 @@ const MessageForm = ({ chatID, uid, editableMessage, setEditableMessage }) => {
                 imageURL = await getDownloadURL(storageRef);
             }
             await runTransaction(db, async (transaction) => {
-                transaction.set(messageRef, {
-                    uid: auth.currentUser.uid,
+                const data = {
+                    senderID: auth.currentUser.uid,
                     message: values.message,
-                    imageURL,
                     timestamp: serverTimestamp(),
-                });
+                };
+                transaction.set(messageRef, { ...data, imageURL });
                 transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                    [`chats.${uid}`]: { message: values.message, timestamp: serverTimestamp() },
+                    [`chats.${uid}`]: data,
                 });
                 transaction.update(doc(db, `users/${uid}`), {
-                    [`chats.${auth.currentUser.uid}`]: {
-                        message: values.message,
-                        timestamp: serverTimestamp(),
-                    },
+                    [`chats.${auth.currentUser.uid}`]: data,
                 });
             });
             setValues({ message: '', file: '' });

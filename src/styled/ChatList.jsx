@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.ul`
+    max-width: 600px;
+    margin: auto;
     border-radius: var(--radius);
     box-shadow: var(--main-shadow);
     overflow: hidden;
@@ -26,7 +28,9 @@ export default styled.ul`
             font-size: 0.875rem;
         }
         .message {
-            padding: 0 0.25rem;
+            display: flex;
+            column-gap: 0.25rem;
+            padding: 0.25rem;
             border-radius: var(--radius);
             background-color: var(--clr-light-blue-2);
         }
