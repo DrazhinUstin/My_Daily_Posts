@@ -16,11 +16,18 @@ const ChatHeader = ({ chatID, chat }) => {
         setIsLoading(true);
         try {
             const { docs } = await getDocs(collection(db, `chats/${chatID}/messages`));
-            await Promise.all(
+            const values = await Promise.allSettled(
                 docs
                     .filter((doc) => doc.data().imageURL)
                     .map((doc) => deleteObject(ref(storage, `chats/${chatID}/${doc.id}`)))
             );
+            if (
+                values.find(
+                    (val) =>
+                        val.status === 'rejected' && val.reason?.code !== 'storage/object-not-found'
+                )
+            )
+                throw Error({ message: val.reason?.message || 'There was an error...' });
             const chunks = [];
             for (let i = 0; i < docs.length; i += 500) {
                 chunks.push(docs.slice(i, i + 500));

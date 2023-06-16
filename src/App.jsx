@@ -3,6 +3,7 @@ import {
     Home,
     Users,
     Chats,
+    ChatList,
     ChatDetails,
     UserDetails,
     UserPosts,
@@ -21,7 +22,6 @@ import {
     UpdatePasswordForm,
     UpdatePersonalForm,
 } from './components';
-import ChatList from './components/ChatList';
 import PostProvider from './contexts/PostContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
