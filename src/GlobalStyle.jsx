@@ -27,6 +27,8 @@ const GlobalStyle = createGlobalStyle`
         --spacing: 0.1rem;
         --max-content-width: 1200px;
         --navbar-height: 3.5rem;
+        --main-margin-y: 4rem;
+        --main-fullscreen: calc(100vh - var(--navbar-height) - var(--main-margin-y) * 2);
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
         --toastify-font-family: var(--font-family);   
@@ -106,10 +108,10 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .main {
-        min-height: calc(100vh - var(--navbar-height) - 8rem);
+        min-height: var(--main-fullscreen);
         max-width: var(--max-content-width);
         width: 90vw;
-        margin: 4rem auto;
+        margin: var(--main-margin-y) auto;
     }
 
     .section-center {

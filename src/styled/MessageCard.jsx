@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export default styled.article`
-    justify-self: flex-start;
+    align-self: flex-start;
     position: relative;
     max-width: 20rem;
     min-width: 10rem;
@@ -48,7 +48,7 @@ export default styled.article`
     ${(props) =>
         !props.isCurrentUser &&
         css`
-            justify-self: flex-end;
+            align-self: flex-end;
             background-color: var(--clr-light-gray);
         `}
     ${(props) =>

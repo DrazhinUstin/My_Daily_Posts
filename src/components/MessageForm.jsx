@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
 import { FlexForm, Input, Button, GreenButton } from '../styled';
 
-const MessageForm = ({ chatID, uid, editableMessage, setEditableMessage }) => {
+const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [values, setValues] = useState({ message: '', file: '' });
     const inputRef = useRef(null);
@@ -37,9 +37,9 @@ const MessageForm = ({ chatID, uid, editableMessage, setEditableMessage }) => {
                 };
                 transaction.set(messageRef, { ...data, imageURL });
                 transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                    [`chats.${uid}`]: data,
+                    [`chats.${chatUID}`]: data,
                 });
-                transaction.update(doc(db, `users/${uid}`), {
+                transaction.update(doc(db, `users/${chatUID}`), {
                     [`chats.${auth.currentUser.uid}`]: data,
                 });
             });
@@ -68,9 +68,9 @@ const MessageForm = ({ chatID, uid, editableMessage, setEditableMessage }) => {
                 });
                 if (editableMessage.isLastMessage) {
                     transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                        [`chats.${uid}.message`]: values.message,
+                        [`chats.${chatUID}.message`]: values.message,
                     });
-                    transaction.update(doc(db, `users/${uid}`), {
+                    transaction.update(doc(db, `users/${chatUID}`), {
                         [`chats.${auth.currentUser.uid}.message`]: values.message,
                     });
                 }
