@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaEllipsisH, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { doc, collection, getDocs, writeBatch, deleteField } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
+import { ConfirmWindow } from '.';
 import { Button, GreenButton, AlertButton, Avatar } from '../styled';
 
 const ChatHeader = ({ chatID, chat }) => {
-    const [isLoading, setIsLoading] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate();
+    const [isWindowOpen, setIsWindowOpen] = useState(false);
 
     const deleteChat = async () => {
-        setIsLoading(true);
         try {
             const { docs } = await getDocs(collection(db, `chats/${chatID}/messages`));
             const values = await Promise.allSettled(
@@ -46,12 +45,10 @@ const ChatHeader = ({ chatID, chat }) => {
             });
             batch.delete(doc(db, `chats/${chatID}`));
             await batch.commit();
-            navigate('..');
             toast.success('Chat was successfully deleted!');
         } catch (error) {
             toast.error(error.message);
         }
-        setIsLoading(false);
     };
 
     return (
@@ -71,12 +68,19 @@ const ChatHeader = ({ chatID, chat }) => {
                 </Button>
                 {isMenuOpen && (
                     <div className='menu-items'>
-                        <AlertButton onClick={deleteChat} disabled={isLoading} $flex>
+                        <AlertButton onClick={() => setIsWindowOpen(true)} $flex>
                             <FaTrashAlt /> delete chat
                         </AlertButton>
                     </div>
                 )}
             </div>
+            {isWindowOpen && (
+                <ConfirmWindow
+                    message='Are you sure that you want to delete this chat?'
+                    callback={deleteChat}
+                    closeWindow={() => setIsWindowOpen(false)}
+                />
+            )}
         </header>
     );
 };

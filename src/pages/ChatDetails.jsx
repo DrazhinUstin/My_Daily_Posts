@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useParams, useOutletContext, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { onSnapshot, query, collection, orderBy, limit } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -34,6 +34,8 @@ const ChatDetails = ({ initialLimit = 10 }) => {
     useEffect(() => {
         if (!isLoading) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
     }, [isLoading]);
+
+    if (!currentChat) return <Navigate to='..' replace={true} />;
 
     return (
         <Container>
