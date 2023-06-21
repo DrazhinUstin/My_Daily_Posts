@@ -12,7 +12,7 @@ const Auth = () => {
     }, [user]);
 
     return (
-        <main className='main grid-center'>
+        <main className='main-100 grid-center'>
             <AuthForm />
         </main>
     );

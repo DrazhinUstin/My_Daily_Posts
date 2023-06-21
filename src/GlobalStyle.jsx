@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
         --navbar-height: 3.5rem;
         --main-margin-y: 4rem;
         --main-fullscreen: calc(100vh - var(--navbar-height) - var(--main-margin-y) * 2);
+        --main-100-fullscreen: calc(100vh - var(--main-margin-y) * 2);
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
         --toastify-font-family: var(--font-family);   
@@ -109,6 +110,13 @@ const GlobalStyle = createGlobalStyle`
 
     .main {
         min-height: var(--main-fullscreen);
+        max-width: var(--max-content-width);
+        width: 90vw;
+        margin: var(--main-margin-y) auto;
+    }
+
+    .main-100 {
+        min-height: var(--main-100-fullscreen);
         max-width: var(--max-content-width);
         width: 90vw;
         margin: var(--main-margin-y) auto;

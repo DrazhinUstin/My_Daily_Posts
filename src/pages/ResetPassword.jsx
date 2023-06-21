@@ -22,7 +22,7 @@ const ResetPassword = () => {
     };
 
     return (
-        <main className='main grid-center'>
+        <main className='main-100 grid-center'>
             <GridForm onSubmit={handleSubmit}>
                 <Title>Forgot Your Password?</Title>
                 <p>

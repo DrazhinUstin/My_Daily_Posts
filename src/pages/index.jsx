@@ -1,3 +1,4 @@
+export { default as SharedLayout } from './SharedLayout';
 export { default as Home } from './Home';
 export { default as Users } from './Users';
 export { default as Chats } from './Chats';
