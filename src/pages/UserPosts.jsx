@@ -4,16 +4,18 @@ import { toast } from 'react-toastify';
 import { query, collection, where, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { usePostContext } from '../contexts/PostContext';
-import { CreatePost, PostEditor, PostCard } from '../components';
+import { Loader, CreatePost, PostEditor, PostCard } from '../components';
 import { Button } from '../styled';
 
 const UserPosts = ({ initialLimit = 10 }) => {
     const { uid, displayName, photoURL } = useOutletContext();
     const { isEditorOpen } = usePostContext() || {};
+    const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
 
     useEffect(() => {
+        setIsLoading(true);
         const unsubscribe = onSnapshot(
             query(
                 collection(db, 'posts'),
@@ -21,7 +23,10 @@ const UserPosts = ({ initialLimit = 10 }) => {
                 orderBy('timestamp', 'desc'),
                 limit(currentLimit)
             ),
-            ({ docs }) => setPosts(docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
+            ({ docs }) => {
+                setPosts(docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                setIsLoading(false);
+            },
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
@@ -36,16 +41,20 @@ const UserPosts = ({ initialLimit = 10 }) => {
                 </>
             )}
             <div style={{ display: 'grid', rowGap: '2rem' }}>
-                {posts.map((post, index) => (
-                    <PostCard key={index} post={{ ...post, displayName, photoURL }} />
+                {posts.map((post) => (
+                    <PostCard key={post.id} post={{ ...post, displayName, photoURL }} />
                 ))}
+                {posts.length === currentLimit && (
+                    <div className='text-center'>
+                        <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>
+                            load next
+                        </Button>
+                    </div>
+                )}
+                {isLoading && <Loader />}
             </div>
-            {posts.length === currentLimit && (
-                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                    <Button onClick={() => setCurrentLimit(currentLimit + initialLimit)}>
-                        load next
-                    </Button>
-                </div>
+            {!isLoading && posts.length === 0 && (
+                <p className='text-center italic'>No posts yet...</p>
             )}
         </section>
     );

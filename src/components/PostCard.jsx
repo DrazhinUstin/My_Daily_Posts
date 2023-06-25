@@ -27,7 +27,7 @@ const PostCard = ({ post }) => {
                     className='comment-btn'
                     onClick={() => setAreCommentsOpen(!areCommentsOpen)}
                 >
-                    {post.commentsAmount}
+                    {post.commentsAmount || null}
                     {areCommentsOpen ? <FaComments /> : <FaRegComments />}
                 </button>
             </footer>

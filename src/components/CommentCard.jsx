@@ -31,24 +31,26 @@ const CommentCard = ({
                 transaction.update(postRef, { commentsAmount });
                 transaction.delete(commentRef);
             });
-            if (editableComment?.id === id) setEditableComment(null);
+            if (isEditable) setEditableComment(null);
         } catch (error) {
             toast.error(error.message);
         }
         setIsLoading(false);
     };
 
+    const fromCurrentUser = uid === auth.currentUser.uid;
+    const isEditable = id === editableComment?.id;
     return (
-        <Card isEditable={editableComment?.id === id}>
-            <Link to={uid === auth.currentUser.uid ? '/' : `/user/${uid}`}>
+        <Card fromCurrentUser={fromCurrentUser} isEditable={isEditable}>
+            <Link to={fromCurrentUser ? '/' : `/user/${uid}`}>
                 <Avatar src={photoURL} size='2rem' />
             </Link>
             <div className='container'>
                 <header>
-                    <Link to={uid === auth.currentUser.uid ? '/' : `/user/${uid}`}>
+                    <Link to={fromCurrentUser ? '/' : `/user/${uid}`}>
                         <h4>{displayName}</h4>
                     </Link>
-                    {uid === auth.currentUser.uid && (
+                    {fromCurrentUser && (
                         <div className='controls'>
                             <Button
                                 $icon

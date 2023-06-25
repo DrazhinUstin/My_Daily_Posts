@@ -35,6 +35,7 @@ export default styled.div`
                 border-radius: var(--radius);
                 box-shadow: var(--main-shadow);
                 overflow: hidden;
+                z-index: 1;
                 & > * {
                     border-radius: 0;
                 }

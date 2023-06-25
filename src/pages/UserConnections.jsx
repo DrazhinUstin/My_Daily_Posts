@@ -3,23 +3,28 @@ import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { query, collection, where, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
-import UserCard from '../components/UserCard';
+import { Loader, UserCard } from '../components';
 import Button from '../styled/Button';
 import styled from 'styled-components';
 
 const UserConnections = ({ initialLimit = 10 }) => {
     const { uid } = useOutletContext();
+    const [isLoading, setIsLoading] = useState(true);
     const [connections, setConnections] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
 
     useEffect(() => {
+        setIsLoading(true);
         const unsubscribe = onSnapshot(
             query(
                 collection(db, 'users'),
                 where('connections', 'array-contains', uid),
                 limit(currentLimit)
             ),
-            ({ docs }) => setConnections(docs.map((doc) => doc.data())),
+            ({ docs }) => {
+                setConnections(docs.map((doc) => doc.data()));
+                setIsLoading(false);
+            },
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
@@ -38,6 +43,10 @@ const UserConnections = ({ initialLimit = 10 }) => {
                         load more
                     </Button>
                 </div>
+            )}
+            {isLoading && <Loader />}
+            {!isLoading && connections.length === 0 && (
+                <p className='text-center italic'>No connections yet...</p>
             )}
         </section>
     );

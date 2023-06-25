@@ -137,6 +137,10 @@ const GlobalStyle = createGlobalStyle`
         text-align: center;
     }
 
+    .italic {
+        font-style: italic;
+    }
+
     .content-card {
         max-width: 600px;
         width: 100%;

@@ -2,22 +2,27 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { query, collection, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
-import { CommentCard, CommentForm } from '.';
+import { Loader, CommentCard, CommentForm } from '.';
 import { Button } from '../styled';
 
 const PostCardComments = ({ postID, initialLimit = 10 }) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [comments, setComments] = useState([]);
     const [currentLimit, setCurrentLimit] = useState(initialLimit);
     const [editableComment, setEditableComment] = useState(null);
 
     useEffect(() => {
+        setIsLoading(true);
         const unsubscribe = onSnapshot(
             query(
                 collection(db, `posts/${postID}/comments`),
                 orderBy('timestamp', 'desc'),
                 limit(currentLimit)
             ),
-            ({ docs }) => setComments(docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
+            ({ docs }) => {
+                setComments(docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+                setIsLoading(false);
+            },
             (error) => toast.error(error.message)
         );
         return () => unsubscribe();
@@ -25,10 +30,10 @@ const PostCardComments = ({ postID, initialLimit = 10 }) => {
 
     return (
         <div>
-            <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                {comments.map((comment, index) => (
+            <div style={{ maxHeight: '320px', overflowY: 'auto' }}>
+                {comments.map((comment) => (
                     <CommentCard
-                        key={index}
+                        key={comment.id}
                         postID={postID}
                         {...comment}
                         editableComment={editableComment}
@@ -41,6 +46,10 @@ const PostCardComments = ({ postID, initialLimit = 10 }) => {
                             load more
                         </Button>
                     </div>
+                )}
+                {isLoading && <Loader size='4rem' />}
+                {!isLoading && comments.length === 0 && (
+                    <p className='text-center italic'>No comments yet...</p>
                 )}
             </div>
             <CommentForm

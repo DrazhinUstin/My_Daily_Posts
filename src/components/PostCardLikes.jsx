@@ -10,15 +10,11 @@ const PostCardLikes = ({ postID, likes = [] }) => {
     const toggleLike = async () => {
         setIsLoading(true);
         try {
-            if (!isPostLiked) {
-                await updateDoc(doc(db, 'posts', postID), {
-                    likes: arrayUnion(auth.currentUser.uid),
-                });
-            } else {
-                await updateDoc(doc(db, 'posts', postID), {
-                    likes: arrayRemove(auth.currentUser.uid),
-                });
-            }
+            await updateDoc(doc(db, 'posts', postID), {
+                likes: !isPostLiked
+                    ? arrayUnion(auth.currentUser.uid)
+                    : arrayRemove(auth.currentUser.uid),
+            });
         } catch (error) {
             toast.error(error.message);
         }

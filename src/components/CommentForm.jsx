@@ -71,7 +71,7 @@ export default CommentForm;
 
 const Form = styled.form`
     display: flex;
-    column-gap: 0.25rem;
+    column-gap: 0.5rem;
     margin-top: 0.75rem;
     input {
         width: 100%;

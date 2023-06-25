@@ -52,7 +52,7 @@ const ChatDetails = ({ initialLimit = 10 }) => {
                         item.senderID === auth.currentUser.uid ? auth.currentUser : currentChat;
                     return (
                         <MessageCard
-                            key={index}
+                            key={item.id}
                             chatID={id}
                             chatUID={currentChat.uid}
                             {...{ ...item, displayName, photoURL }}
