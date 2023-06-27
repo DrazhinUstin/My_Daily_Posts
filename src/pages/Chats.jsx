@@ -31,7 +31,7 @@ const Chats = () => {
     if (!chatList.length)
         return (
             <main className='main grid-center'>
-                <h3 className='text-center'>You don't have any chats yet...</h3>
+                <p className='text-center italic'>You don't have any chats yet...</p>
             </main>
         );
 

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { navbarLinks } from '../utils/localData';
 import NavbarMenu from './NavbarMenu';
-import Wrapper from '../styled/Navbar';
+import { Navbar as Wrapper, Logo } from '../styled';
 
 const Navbar = () => {
     const [areLinksOpen, setAreLinksOpen] = useState(false);
@@ -16,7 +16,7 @@ const Navbar = () => {
                 >
                     <FaBars />
                 </button>
-                <h3 className='logo'>my daily posts</h3>
+                <Logo />
                 <ul className={areLinksOpen ? 'links open' : 'links'}>
                     {navbarLinks.map(({ id, icon, name, path }) => (
                         <li key={id}>

@@ -63,7 +63,9 @@ const Users = ({ dbLimit = 10 }) => {
                     </Button>
                 </div>
             )}
-            {!users.length && !isLoading && <h3 className='text-center'>No users were found...</h3>}
+            {!users.length && !isLoading && (
+                <p className='text-center italic'>No users were found...</p>
+            )}
         </main>
     );
 };

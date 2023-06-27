@@ -2,6 +2,10 @@
 
 This project was created using [Vite](https://vitejs.dev) and [Firebase](https://firebase.google.com).
 
+## Description
+
+This application allows you to create your own account where you can post comments, share photographs, find other users and chat with them.
+
 ## Installation
 
 1. Download zip file or Clone Repo

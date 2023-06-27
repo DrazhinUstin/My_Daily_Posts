@@ -1,3 +1,4 @@
+export { default as Logo } from './Logo';
 export { default as GridForm } from './GridForm';
 export { default as FlexForm } from './FlexForm';
 export { default as Input } from './Input';
@@ -7,6 +8,7 @@ export { default as Title } from './Title';
 export { default as Avatar } from './Avatar';
 export { default as GridList } from './GridList';
 export { default as Substrate } from './Substrate';
+export { default as Navbar } from './Navbar';
 export { default as PostEditor } from './PostEditor';
 export { default as PostCard } from './PostCard';
 export { default as CommentCard } from './CommentCard';
