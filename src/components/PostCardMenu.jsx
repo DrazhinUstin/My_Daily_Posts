@@ -29,7 +29,7 @@ const PostCardMenu = ({ post }) => {
                 chunks.push(docs.slice(i, i + 500));
             }
             await Promise.all(
-                chunks.map(async (chunk) => {
+                chunks.map((chunk) => {
                     const batch = writeBatch(db);
                     chunk.forEach((doc) => batch.delete(doc.ref));
                     return batch.commit();

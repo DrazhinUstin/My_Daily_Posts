@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     ${(props) =>
         props.fullscreen &&
         css`
-            min-height: calc(100vh - var(--navbar-height) - 8rem);
+            min-height: calc(100vh - var(--navbar-height) - var(--footer-height) - 8rem);
             margin: 4rem 0;
         `}
     img {

@@ -16,17 +16,15 @@ const UserLinks = () => {
 export default UserLinks;
 
 const Wrapper = styled.nav`
-    display: flex;
-    justify-content: center;
-    column-gap: 0.25rem;
-    margin: 2rem 0;
+    width: max-content;
+    margin: 2rem auto;
+    border-radius: var(--radius);
+    background-color: var(--clr-light-blue-2);
     a {
         min-width: 6rem;
-        position: relative;
         display: inline-block;
         padding: 0.5rem;
-        border-radius: 1rem 1rem 0 0;
-        background-color: var(--clr-white);
+        border-radius: var(--radius);
         color: var(--clr-blue);
         text-align: center;
         font-size: 0.875rem;

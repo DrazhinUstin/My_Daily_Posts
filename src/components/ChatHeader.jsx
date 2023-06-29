@@ -20,22 +20,22 @@ const ChatHeader = ({ chatID, chat }) => {
                     .filter((doc) => doc.data().imageURL)
                     .map((doc) => deleteObject(ref(storage, `chats/${chatID}/${doc.id}`)))
             );
-            if (
-                values.find(
-                    (val) =>
-                        val.status === 'rejected' && val.reason?.code !== 'storage/object-not-found'
-                )
-            )
-                throw Error({ message: val.reason?.message || 'There was an error...' });
+            const rejectedVal = values.find(
+                (val) =>
+                    val.status === 'rejected' && val.reason?.code !== 'storage/object-not-found'
+            );
+            if (rejectedVal) throw Error(rejectedVal.reason?.message || 'There was an error...');
             const chunks = [];
             for (let i = 0; i < docs.length; i += 500) {
                 chunks.push(docs.slice(i, i + 500));
             }
-            chunks.forEach(async (chunk) => {
-                const batch = writeBatch(db);
-                chunk.forEach((doc) => batch.delete(doc.ref));
-                await batch.commit();
-            });
+            await Promise.all(
+                chunks.map((chunk) => {
+                    const batch = writeBatch(db);
+                    chunk.forEach((doc) => batch.delete(doc.ref));
+                    return batch.commit();
+                })
+            );
             const batch = writeBatch(db);
             batch.update(doc(db, `users/${auth.currentUser.uid}`), {
                 [`chats.${chat.uid}`]: deleteField(),

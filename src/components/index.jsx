@@ -1,4 +1,5 @@
 export { default as Navbar } from './Navbar';
+export { default as Footer } from './Footer';
 export { default as CreatePost } from './CreatePost';
 export { default as PostCard } from './PostCard';
 export { default as PostCardMenu } from './PostCardMenu';

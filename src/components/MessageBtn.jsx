@@ -80,6 +80,7 @@ export default MessageBtn;
 
 const Form = styled(GridForm)`
     position: relative;
+    width: 90vw;
     ${AlertButton} {
         position: absolute;
         top: -0.875rem;

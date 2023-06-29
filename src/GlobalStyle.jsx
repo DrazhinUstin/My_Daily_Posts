@@ -9,8 +9,8 @@ export const breakpoints = {
 
 const GlobalStyle = createGlobalStyle`
     :root {
-        --clr-black: #333333 ;
-        --clr-rgb-black: 33, 33, 33;
+        --clr-black: #3c434c;
+        --clr-rgb-black: 60, 67, 76;
         --clr-white: #fff;
         --clr-rgb-white: 255, 255, 255;
         --clr-light-gray: #ebebeb;
@@ -27,8 +27,9 @@ const GlobalStyle = createGlobalStyle`
         --spacing: 0.1rem;
         --max-content-width: 1200px;
         --navbar-height: 3.5rem;
+        --footer-height: 2rem;
         --main-margin-y: 4rem;
-        --main-fullscreen: calc(100vh - var(--navbar-height) - var(--main-margin-y) * 2);
+        --main-fullscreen: calc(100vh - var(--navbar-height) - var(--footer-height) - var(--main-margin-y) * 2);
         --main-100-fullscreen: calc(100vh - var(--main-margin-y) * 2);
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
