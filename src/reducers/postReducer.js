@@ -1,7 +1,5 @@
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'SET_POSTS':
-            return { ...state, posts: action.payload };
         case 'OPEN_EDITOR':
             return { ...state, isEditorOpen: true };
         case 'CLOSE_EDITOR':

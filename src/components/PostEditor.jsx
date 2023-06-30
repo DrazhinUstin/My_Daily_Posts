@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { toast } from 'react-toastify';
 import { FaImage, FaTimes } from 'react-icons/fa';
 import { doc, collection, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, auth, storage } from '../firebase';
 import { usePostContext } from '../contexts/PostContext';
+import { Quill } from '.';
 import { Substrate, PostEditor as Editor, Button, AlertButton } from '../styled';
 
 const PostEditor = () => {
@@ -81,12 +80,7 @@ const PostEditor = () => {
                 >
                     <FaTimes />
                 </AlertButton>
-                <ReactQuill
-                    theme='snow'
-                    value={message}
-                    onChange={setMessage}
-                    placeholder='Start writing a post...'
-                />
+                <Quill value={message} onChange={setMessage} />
                 <div className='controls'>
                     <label htmlFor='file'>
                         <FaImage size='2rem' />

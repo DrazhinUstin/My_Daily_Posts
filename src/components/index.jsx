@@ -25,3 +25,4 @@ export { default as FormField } from './FormField';
 export { default as CustomDatePicker } from './CustomDatePicker';
 export { default as Loader } from './Loader';
 export { default as ConfirmWindow } from './ConfirmWindow';
+export { default as Quill } from './Quill';

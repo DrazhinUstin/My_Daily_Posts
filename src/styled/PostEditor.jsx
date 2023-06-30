@@ -12,13 +12,11 @@ export default styled.div`
         top: -0.875rem;
         right: -0.875rem;
     }
-    .quill {
-        margin: 1rem 0;
-    }
     .controls {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-top: 1rem;
         label {
             color: var(--clr-green);
         }

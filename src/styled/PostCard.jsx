@@ -46,6 +46,20 @@ export default styled.article`
             }
         }
     }
+    .html {
+        a {
+            color: var(--clr-blue);
+            text-decoration: underline;
+        }
+        ul,
+        ol {
+            padding-left: 1.5rem;
+        }
+        li {
+            list-style-type: inherit;
+            list-style-position: inside;
+        }
+    }
     & > img {
         width: 100%;
         border-radius: var(--radius);

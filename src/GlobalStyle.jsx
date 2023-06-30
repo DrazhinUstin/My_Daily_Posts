@@ -150,6 +150,32 @@ const GlobalStyle = createGlobalStyle`
         box-shadow: var(--main-shadow);
         background-color: var(--clr-white);
     }
+
+    .quill {
+        .ql-toolbar.ql-snow {
+            border-color: var(--clr-gray);
+            font-family: var(--font-family);
+        }
+        .ql-container.ql-snow {
+            border-color: var(--clr-gray);
+        }
+        .ql-container {
+            font-family: var(--font-family);
+            font-size: 0.875rem;
+        }
+        .ql-editor {
+            line-height: 1.5;
+        }
+        .ql-snow a {
+            color: var(--clr-blue);  
+        }
+        .ql-snow .ql-tooltip {
+            border-color: var(--clr-gray);
+            box-shadow: var(--main-shadow);
+            background-color: var(--clr-white);
+            color: var(--clr-black);
+        }
+    }
 `;
 
 export default GlobalStyle;
