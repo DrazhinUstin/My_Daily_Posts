@@ -15,6 +15,7 @@ import {
     Auth,
     RequireAuth,
     ResetPassword,
+    NotFound,
 } from './pages';
 import {
     UpdateProfileForm,
@@ -66,6 +67,7 @@ const App = () => {
                     </Route>
                     <Route path='auth' element={<Auth />} />
                     <Route path='reset_password' element={<ResetPassword />} />
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </Router>
             <ToastContainer position='top-center' />
