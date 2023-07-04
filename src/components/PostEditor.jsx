@@ -16,8 +16,9 @@ const PostEditor = () => {
 
     const handleFile = (e) => {
         const file = e.target.files[0];
-        if (!file) return;
-        if (!file.type.startsWith('image/')) {
+        if (!file) {
+            setFile(null);
+        } else if (!file.type.startsWith('image/')) {
             toast.error(`Incorrect file type: ${file.type}`);
         } else if (file.size > 3e6) {
             toast.error(`File size is too big. Max file size is 3 MB`);

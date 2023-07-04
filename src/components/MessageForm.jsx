@@ -8,12 +8,12 @@ import { FlexForm, Input, Button, GreenButton } from '../styled';
 
 const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [values, setValues] = useState({ message: '', file: '' });
+    const [values, setValues] = useState({ message: '', file: null });
     const inputRef = useRef(null);
 
     useEffect(() => {
         if (editableMessage) {
-            setValues({ message: editableMessage.message, file: '' });
+            setValues({ message: editableMessage.message, file: null });
             inputRef.current.focus();
         }
     }, [editableMessage]);
@@ -43,7 +43,7 @@ const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) =
                     [`chats.${auth.currentUser.uid}`]: data,
                 });
             });
-            setValues({ message: '', file: '' });
+            setValues({ message: '', file: null });
         } catch (error) {
             toast.error(error.message);
         }
@@ -76,7 +76,7 @@ const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) =
                 }
             });
             setEditableMessage(null);
-            setValues({ message: '', file: '' });
+            setValues({ message: '', file: null });
         } catch (error) {
             toast.error(error.message);
         }
@@ -88,7 +88,7 @@ const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) =
         if (name === 'file') {
             value = e.target.files[0];
             if (!value) {
-                setValues({ ...values, [name]: '' });
+                setValues({ ...values, [name]: null });
                 return;
             }
             if (!value.type.startsWith('image/')) {

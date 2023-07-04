@@ -15,7 +15,10 @@ const UpdateProfileForm = () => {
         let { name, value } = e.target;
         if (name === 'file') {
             value = e.target.files[0];
-            if (!value) return;
+            if (!value) {
+                setValues({ ...values, [name]: null });
+                return;
+            }
             if (!value.type.startsWith('image/')) {
                 toast.error(`Incorrect file type: ${value.type}`);
                 return;
