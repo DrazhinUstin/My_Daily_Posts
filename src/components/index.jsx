@@ -26,3 +26,4 @@ export { default as CustomDatePicker } from './CustomDatePicker';
 export { default as Loader } from './Loader';
 export { default as ConfirmWindow } from './ConfirmWindow';
 export { default as Quill } from './Quill';
+export { default as ImageViewer } from './ImageViewer';
