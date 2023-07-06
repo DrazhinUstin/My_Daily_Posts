@@ -12,33 +12,39 @@ const PostEditor = () => {
     const { editablePost, dispatch } = usePostContext();
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState(editablePost?.message || '');
-    const [file, setFile] = useState(null);
+    const [files, setFiles] = useState([]);
 
     const handleFile = (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            setFile(null);
-        } else if (!file.type.startsWith('image/')) {
-            toast.error(`Incorrect file type: ${file.type}`);
-        } else if (file.size > 3e6) {
-            toast.error(`File size is too big. Max file size is 3 MB`);
-        } else setFile(file);
+        const files = [...e.target.files];
+        const incorrectTypeFile = files.find((file) => !file.type.startsWith('image/'));
+        const incorrectSizeFile = files.find((file) => file.size > 3e6);
+        if (files.length > 4) {
+            toast.error('You cannot upload more than 4 images.');
+        } else if (incorrectTypeFile) {
+            toast.error(`Cannot upload ${incorrectTypeFile.name}. Incorrect type.`);
+        } else if (incorrectSizeFile) {
+            toast.error(`Cannot upload ${incorrectSizeFile.name}. File size > 3 MB `);
+        } else setFiles(files);
     };
 
     const addPost = async () => {
         setIsLoading(true);
         try {
             const docRef = doc(collection(db, 'posts'));
-            let imageURL = null;
-            if (file) {
-                const storageRef = ref(storage, `posts/${docRef.id}`);
-                await uploadBytes(storageRef, file);
-                imageURL = await getDownloadURL(storageRef);
+            let imageURLS = [];
+            if (files.length) {
+                imageURLS = await Promise.all(
+                    files.map(async (file, index) => {
+                        const storageRef = ref(storage, `posts/${docRef.id}/${index}`);
+                        await uploadBytes(storageRef, file);
+                        return getDownloadURL(storageRef);
+                    })
+                );
             }
             await setDoc(docRef, {
                 uid: auth.currentUser.uid,
                 message,
-                imageURL,
+                imageURLS,
                 timestamp: serverTimestamp(),
             });
             toast.success('Post was created!');
@@ -53,15 +59,20 @@ const PostEditor = () => {
         setIsLoading(true);
         try {
             const docRef = doc(db, `posts/${editablePost.id}`);
-            let imageURL = editablePost.imageURL;
-            if (file) {
-                const storageRef = ref(storage, `posts/${docRef.id}`);
-                await uploadBytes(storageRef, file);
-                imageURL = await getDownloadURL(storageRef);
+            let imageURLS = editablePost.imageURLS;
+            if (files.length) {
+                const newImageURLS = await Promise.all(
+                    files.map(async (file, index) => {
+                        const storageRef = ref(storage, `posts/${docRef.id}/${index}`);
+                        await uploadBytes(storageRef, file);
+                        return getDownloadURL(storageRef);
+                    })
+                );
+                imageURLS = [...newImageURLS, ...imageURLS.slice(newImageURLS.length)];
             }
             await updateDoc(docRef, {
                 message,
-                imageURL,
+                imageURLS,
             });
             toast.success('Post was edited!');
             dispatch({ type: 'CLOSE_EDITOR' });
@@ -86,7 +97,14 @@ const PostEditor = () => {
                     <label htmlFor='file'>
                         <FaImage size='2rem' />
                     </label>
-                    <input type='file' id='file' accept='image/*' onChange={handleFile} hidden />
+                    <input
+                        type='file'
+                        id='file'
+                        accept='image/*'
+                        onChange={handleFile}
+                        multiple
+                        hidden
+                    />
                     <Button
                         onClick={editablePost ? editPost : addPost}
                         disabled={!message.length || isLoading}
@@ -94,13 +112,14 @@ const PostEditor = () => {
                         {editablePost ? 'edit' : 'post'}
                     </Button>
                 </div>
-                {file && (
+                {files.map((file, index) => (
                     <img
+                        key={index}
                         src={URL.createObjectURL(file)}
                         onLoad={(e) => URL.revokeObjectURL(e.target.src)}
                         alt='preview'
                     />
-                )}
+                ))}
             </Editor>
         </Substrate>
     );

@@ -60,9 +60,15 @@ export default styled.article`
             list-style-position: inside;
         }
     }
-    & > img {
-        width: 100%;
-        border-radius: var(--radius);
+    .images {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.25rem;
+        img {
+            width: 6rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
     }
     & > footer {
         display: flex;

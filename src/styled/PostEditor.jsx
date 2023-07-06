@@ -22,7 +22,9 @@ export default styled.div`
         }
     }
     img[alt='preview'] {
-        width: 5rem;
+        width: 3rem;
+        display: inline-block;
+        margin-right: 0.25rem;
         border-radius: var(--radius);
     }
 `;

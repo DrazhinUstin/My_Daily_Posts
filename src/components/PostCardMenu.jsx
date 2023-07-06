@@ -15,13 +15,17 @@ const PostCardMenu = ({ post }) => {
     const deletePost = async () => {
         setIsLoading(true);
         try {
-            if (post.imageURL) {
-                const [res] = await Promise.allSettled([
-                    deleteObject(ref(storage, `posts/${post.id}`)),
-                ]);
-                if (res.status === 'rejected' && res.reason?.code !== 'storage/object-not-found') {
-                    throw Error(res.reason?.message || 'There was an error');
-                }
+            if (post.imageURLS) {
+                const values = await Promise.allSettled(
+                    post.imageURLS.map((_, index) =>
+                        deleteObject(ref(storage, `posts/${post.id}/${index}`))
+                    )
+                );
+                const rejectedVal = values.find(
+                    (val) =>
+                        val.status === 'rejected' && val.reason?.code !== 'storage/object-not-found'
+                );
+                if (rejectedVal) throw Error(rejectedVal.reason?.message || 'There was an error');
             }
             const { docs } = await getDocs(collection(db, `posts/${post.id}/comments`));
             const chunks = [];

@@ -3,6 +3,7 @@ export { default as Footer } from './Footer';
 export { default as CreatePost } from './CreatePost';
 export { default as PostCard } from './PostCard';
 export { default as PostCardMenu } from './PostCardMenu';
+export { default as PostCardImages } from './PostCardImages';
 export { default as PostCardLikes } from './PostCardLikes';
 export { default as PostCardComments } from './PostCardComments';
 export { default as CommentCard } from './CommentCard';
