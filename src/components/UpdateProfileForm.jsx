@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { doc, updateDoc } from 'firebase/firestore';
+import {
+    doc,
+    updateDoc,
+    getDocs,
+    query,
+    collectionGroup,
+    where,
+    writeBatch,
+} from 'firebase/firestore';
 import { auth, storage, db } from '../firebase';
 import { FormField } from '.';
 import { GridForm, Title, Button, GreenButton } from '../styled';
@@ -49,10 +57,26 @@ const UpdateProfileForm = () => {
                 displayName: values.displayName,
                 photoURL,
             });
+            const { docs } = await getDocs(
+                query(collectionGroup(db, 'comments'), where('uid', '==', auth.currentUser.uid))
+            );
+            const chunks = [];
+            for (let i = 0; i < docs.length; i += 500) {
+                chunks.push(docs.slice(i, i + 500));
+            }
+            await Promise.all(
+                chunks.map((chunk) => {
+                    const batch = writeBatch(db);
+                    chunk.forEach((doc) =>
+                        batch.update(doc.ref, { displayName: values.displayName, photoURL })
+                    );
+                    return batch.commit();
+                })
+            );
             setValues({ ...values, file: null });
             toast.success('Profile was updated!');
         } catch (error) {
-            toast.error(error);
+            toast.error(error.message);
         }
         setIsLoading(false);
     };

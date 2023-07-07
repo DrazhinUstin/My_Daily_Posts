@@ -15,7 +15,7 @@ const PostCardMenu = ({ post }) => {
     const deletePost = async () => {
         setIsLoading(true);
         try {
-            if (post.imageURLS) {
+            if (post.imageURLS.length) {
                 const values = await Promise.allSettled(
                     post.imageURLS.map((_, index) =>
                         deleteObject(ref(storage, `posts/${post.id}/${index}`))
