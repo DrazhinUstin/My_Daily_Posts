@@ -15,6 +15,7 @@ import {
 import { ref, deleteObject } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
 import { formatTimestamp } from '../utils/helpers';
+import { ImageGallery } from '.';
 import { MessageCard as Card, Avatar, Button, AlertButton } from '../styled';
 
 const MessageCard = ({
@@ -75,7 +76,7 @@ const MessageCard = ({
             <div>
                 <h4>{displayName}</h4>
                 <p>{message}</p>
-                {imageURL && <img src={imageURL} alt='message-image' />}
+                {imageURL && <ImageGallery urls={[imageURL]} className='media' />}
                 <p className='date'>{formatTimestamp(timestamp)}</p>
             </div>
             {isCurrentUser && (

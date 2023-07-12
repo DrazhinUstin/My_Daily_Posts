@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaComments, FaRegComments } from 'react-icons/fa';
 import { auth } from '../firebase';
 import { formatTimestamp } from '../utils/helpers';
-import { PostCardMenu, PostCardImages, PostCardLikes, PostCardComments } from './';
+import { PostCardMenu, ImageGallery, PostCardLikes, PostCardComments } from './';
 import { PostCard as Card, Avatar } from '../styled';
 
 const PostCard = ({ post }) => {
@@ -20,7 +20,7 @@ const PostCard = ({ post }) => {
                 {post.uid === auth.currentUser.uid && <PostCardMenu post={post} />}
             </header>
             <div className='html' dangerouslySetInnerHTML={{ __html: post.message }} />
-            {post.imageURLS.length > 0 && <PostCardImages imageURLS={post.imageURLS} />}
+            {post.imageURLS.length > 0 && <ImageGallery urls={post.imageURLS} className='images' />}
             <footer>
                 <PostCardLikes postID={post.id} likes={post.likes} />
                 <button

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export default styled.article`
     align-self: flex-start;
     position: relative;
-    max-width: 20rem;
+    max-width: 15rem;
     min-width: 10rem;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -15,10 +15,13 @@ export default styled.article`
     h4 {
         letter-spacing: unset;
     }
-    h4 ~ img {
-        width: 15rem;
+    .media {
         margin: 0.5rem 0;
-        border-radius: var(--radius);
+        img {
+            max-width: 10rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
     }
     .date {
         color: var(--clr-dark-gray);
@@ -27,16 +30,17 @@ export default styled.article`
     }
     .controls {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 5rem;
+        height: 2.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
         column-gap: 0.5rem;
         border-radius: inherit;
-        background-color: inherit;
+        background-color: rgba(var(--clr-rgb-black), 0.8);
         opacity: 0;
         visibility: hidden;
         transition: var(--trans-ease);
