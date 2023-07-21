@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const UserCard = ({ uid, photoURL, displayName }) => {
     return (
-        <Wrapper key={uid}>
+        <Wrapper>
             <Avatar src={photoURL} size='5rem' margin='auto' />
             <h4>{displayName}</h4>
             <Button as={Link} to={uid === auth.currentUser.uid ? '/' : `/user/${uid}`}>
@@ -17,11 +17,7 @@ const UserCard = ({ uid, photoURL, displayName }) => {
 
 export default UserCard;
 
-const Wrapper = styled.article`
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
-    background-color: var(--clr-white);
+const Wrapper = styled.article.attrs({ className: 'content-card' })`
     text-align: center;
     h4 {
         margin: 1rem 0;

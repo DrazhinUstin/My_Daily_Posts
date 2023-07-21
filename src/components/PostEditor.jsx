@@ -23,7 +23,7 @@ const PostEditor = () => {
         } else if (incorrectTypeFile) {
             toast.error(`Cannot upload ${incorrectTypeFile.name}. Incorrect type.`);
         } else if (incorrectSizeFile) {
-            toast.error(`Cannot upload ${incorrectSizeFile.name}. File size > 3 MB `);
+            toast.error(`Cannot upload ${incorrectSizeFile.name}. File size > 3 MB`);
         } else setFiles(files);
     };
 

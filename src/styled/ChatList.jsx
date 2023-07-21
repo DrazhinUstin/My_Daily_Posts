@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
-export default styled.ul`
-    max-width: 600px;
+export default styled.ul.attrs({ className: 'content-card' })`
     margin: auto;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
+    padding: 0;
     overflow: hidden;
-    background-color: var(--clr-white);
     li {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -38,7 +35,6 @@ export default styled.ul`
     a:last-child li {
         border-bottom: 0;
     }
-    a.active li,
     li:hover {
         background-color: var(--clr-light-blue);
     }

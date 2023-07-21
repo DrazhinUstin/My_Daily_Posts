@@ -3,6 +3,7 @@ import { FaComment, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { doc, collection, runTransaction, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { calculateChatID } from '../utils/helpers';
 import { GreenButton, Substrate, GridForm, Input, AlertButton, Button } from '../styled';
 import styled from 'styled-components';
 
@@ -14,8 +15,7 @@ const MessageBtn = ({ uid }) => {
         e.preventDefault();
         setIsLoading(true);
         const { message } = Object.fromEntries(new FormData(e.currentTarget));
-        const chatID =
-            auth.currentUser.uid > uid ? auth.currentUser.uid + uid : uid + auth.currentUser.uid;
+        const chatID = calculateChatID(auth.currentUser.uid, uid);
         const chatRef = doc(db, 'chats', chatID);
         const msgRef = doc(collection(chatRef, 'messages'));
         try {

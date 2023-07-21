@@ -1,16 +1,9 @@
 import styled from 'styled-components';
 
-export default styled.article`
-    position: relative;
-    max-width: 600px;
-    width: 100%;
+export default styled.article.attrs({ className: 'content-card' })`
     display: grid;
     row-gap: 1rem;
     margin: 0 auto;
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
-    background-color: var(--clr-white);
     & > header {
         display: grid;
         grid-template-columns: 1fr auto;

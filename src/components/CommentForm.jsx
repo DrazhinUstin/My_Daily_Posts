@@ -56,7 +56,7 @@ const CommentForm = ({ postID, editableComment, setEditableComment }) => {
                 onChange={(e) => setMessage(e.target.value)}
                 disabled={isLoading}
                 placeholder='Type a comment...'
-                maxLength={100}
+                maxLength={200}
                 required
                 ref={inputRef}
             />

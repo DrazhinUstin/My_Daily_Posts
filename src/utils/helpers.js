@@ -16,3 +16,7 @@ export const formatTimestamp = (timestamp, locales = 'en-US') => {
         minute: '2-digit',
     }).format(timestamp);
 };
+
+export const calculateChatID = (firstUID, secondUID) => {
+    return firstUID > secondUID ? firstUID + secondUID : secondUID + firstUID;
+};

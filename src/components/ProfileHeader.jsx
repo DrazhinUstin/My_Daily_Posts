@@ -29,17 +29,12 @@ const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
 
 export default ProfileHeader;
 
-const Header = styled.header`
-    max-width: 600px;
+const Header = styled.header.attrs({ className: 'content-card' })`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 1rem;
     margin: 0 auto;
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
-    background-color: var(--clr-white);
     .info {
         display: grid;
         grid-template-columns: auto 1fr;

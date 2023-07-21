@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaPaperPlane, FaEdit, FaImage } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { doc, collection, runTransaction, serverTimestamp } from 'firebase/firestore';
+import { doc, collection, writeBatch, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
 import { FlexForm, Input, Button, GreenButton } from '../styled';
@@ -29,20 +29,20 @@ const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) =
                 await uploadBytes(storageRef, values.file);
                 imageURL = await getDownloadURL(storageRef);
             }
-            await runTransaction(db, async (transaction) => {
-                const data = {
-                    senderID: auth.currentUser.uid,
-                    message: values.message,
-                    timestamp: serverTimestamp(),
-                };
-                transaction.set(messageRef, { ...data, imageURL });
-                transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                    [`chats.${chatUID}`]: data,
-                });
-                transaction.update(doc(db, `users/${chatUID}`), {
-                    [`chats.${auth.currentUser.uid}`]: data,
-                });
+            const batch = writeBatch(db);
+            const data = {
+                senderID: auth.currentUser.uid,
+                message: values.message,
+                timestamp: serverTimestamp(),
+            };
+            batch.set(messageRef, { ...data, imageURL });
+            batch.update(doc(db, `users/${auth.currentUser.uid}`), {
+                [`chats.${chatUID}`]: data,
             });
+            batch.update(doc(db, `users/${chatUID}`), {
+                [`chats.${auth.currentUser.uid}`]: data,
+            });
+            await batch.commit();
             setValues({ message: '', file: null });
         } catch (error) {
             toast.error(error.message);
@@ -61,20 +61,20 @@ const MessageForm = ({ chatID, chatUID, editableMessage, setEditableMessage }) =
                 await uploadBytes(storageRef, values.file);
                 imageURL = await getDownloadURL(storageRef);
             }
-            await runTransaction(db, async (transaction) => {
-                transaction.update(messageRef, {
-                    message: values.message,
-                    imageURL,
-                });
-                if (editableMessage.isLastMessage) {
-                    transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                        [`chats.${chatUID}.message`]: values.message,
-                    });
-                    transaction.update(doc(db, `users/${chatUID}`), {
-                        [`chats.${auth.currentUser.uid}.message`]: values.message,
-                    });
-                }
+            const batch = writeBatch(db);
+            batch.update(messageRef, {
+                message: values.message,
+                imageURL,
             });
+            if (editableMessage.isLastMessage) {
+                batch.update(doc(db, `users/${auth.currentUser.uid}`), {
+                    [`chats.${chatUID}.message`]: values.message,
+                });
+                batch.update(doc(db, `users/${chatUID}`), {
+                    [`chats.${auth.currentUser.uid}.message`]: values.message,
+                });
+            }
+            await batch.commit();
             setEditableMessage(null);
             setValues({ message: '', file: null });
         } catch (error) {

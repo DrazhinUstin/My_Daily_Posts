@@ -1,6 +1,6 @@
-import { useOutletContext, NavLink } from 'react-router-dom';
+import { useOutletContext, Link } from 'react-router-dom';
 import { auth } from '../firebase';
-import { formatTimestamp } from '../utils/helpers';
+import { calculateChatID, formatTimestamp } from '../utils/helpers';
 import { ChatList as List, Avatar } from '../styled';
 
 const ChatList = () => {
@@ -10,14 +10,7 @@ const ChatList = () => {
             {chats
                 .sort((a, b) => b.timestamp.seconds - a.timestamp.seconds)
                 .map(({ uid, displayName, photoURL, senderID, message, timestamp }) => (
-                    <NavLink
-                        key={uid}
-                        to={
-                            auth.currentUser.uid > uid
-                                ? auth.currentUser.uid + uid
-                                : uid + auth.currentUser.uid
-                        }
-                    >
+                    <Link key={uid} to={calculateChatID(auth.currentUser.uid, uid)}>
                         <li>
                             <Avatar src={photoURL} />
                             <div>
@@ -33,7 +26,7 @@ const ChatList = () => {
                                 </p>
                             </div>
                         </li>
-                    </NavLink>
+                    </Link>
                 ))}
         </List>
     );

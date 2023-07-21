@@ -7,6 +7,7 @@ export default styled.article`
         margin-bottom: 0.75rem;
     }
     .container {
+        max-width: 17.5rem;
         min-width: 12.5rem;
         display: grid;
         gap: 0.25rem;

@@ -1,7 +1,7 @@
 import { breakpoints } from '../GlobalStyle';
 import styled from 'styled-components';
 
-export default styled.main.attrs(() => ({ className: 'main' }))`
+export default styled.main.attrs({ className: 'main' })`
     display: grid;
     grid-template-columns: 200px 1fr;
     align-items: flex-start;

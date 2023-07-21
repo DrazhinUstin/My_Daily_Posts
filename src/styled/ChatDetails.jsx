@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export default styled.div`
+export default styled.div.attrs({ className: 'content-card' })`
     --chat-header-height: 4rem;
     --chat-form-height: 4rem;
-    max-width: 600px;
     margin: auto;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
-    background-color: var(--clr-white);
+    padding: 0;
     .chat-header {
         height: var(--chat-header-height);
         display: flex;

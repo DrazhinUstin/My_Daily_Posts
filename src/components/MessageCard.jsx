@@ -10,7 +10,7 @@ import {
     limit,
     deleteDoc,
     getDocs,
-    runTransaction,
+    writeBatch,
 } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { db, storage, auth } from '../firebase';
@@ -49,16 +49,16 @@ const MessageCard = ({
                     )
                 );
                 const { senderID = null, message = '' } = docs[0]?.data() || {};
-                await runTransaction(db, async (transaction) => {
-                    transaction.update(doc(db, `users/${auth.currentUser.uid}`), {
-                        [`chats.${chatUID}.senderID`]: senderID,
-                        [`chats.${chatUID}.message`]: message,
-                    });
-                    transaction.update(doc(db, `users/${chatUID}`), {
-                        [`chats.${auth.currentUser.uid}.senderID`]: senderID,
-                        [`chats.${auth.currentUser.uid}.message`]: message,
-                    });
+                const batch = writeBatch(db);
+                batch.update(doc(db, `users/${auth.currentUser.uid}`), {
+                    [`chats.${chatUID}.senderID`]: senderID,
+                    [`chats.${chatUID}.message`]: message,
                 });
+                batch.update(doc(db, `users/${chatUID}`), {
+                    [`chats.${auth.currentUser.uid}.senderID`]: senderID,
+                    [`chats.${auth.currentUser.uid}.message`]: message,
+                });
+                await batch.commit();
             }
         } catch (error) {
             toast.error(error.message);

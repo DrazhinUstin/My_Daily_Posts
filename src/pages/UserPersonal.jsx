@@ -83,13 +83,8 @@ const UserPersonal = () => {
 
 export default UserPersonal;
 
-const Wrapper = styled.section`
-    max-width: 600px;
+const Wrapper = styled.section.attrs({ className: 'content-card' })`
     margin: 0 auto;
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--main-shadow);
-    background-color: var(--clr-white);
     ${GridList} {
         .flex {
             display: flex;
