@@ -17,9 +17,6 @@ export default styled.article.attrs({ className: 'content-card' })`
         img {
             flex-shrink: 0;
         }
-        h4 {
-            letter-spacing: unset;
-        }
         p {
             font-size: 0.875rem;
         }

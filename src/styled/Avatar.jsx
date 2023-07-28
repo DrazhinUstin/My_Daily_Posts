@@ -7,6 +7,7 @@ const Avatar = styled.img.attrs((props) => ({ src: props.src || default_user, al
     margin: ${(props) => props.margin};
     border-radius: 50%;
     object-fit: cover;
+    background-color: var(--clr-white);
 `;
 
 export default Avatar;

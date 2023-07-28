@@ -12,9 +12,6 @@ export default styled.article`
     padding: 0.5rem;
     border-radius: var(--radius);
     background-color: var(--clr-light-blue-2);
-    h4 {
-        letter-spacing: unset;
-    }
     .media {
         margin: 0.5rem 0;
         img {

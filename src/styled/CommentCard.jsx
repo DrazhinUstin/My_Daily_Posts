@@ -28,7 +28,6 @@ export default styled.article`
             h4 {
                 color: var(--clr-blue);
                 font-weight: 500;
-                letter-spacing: unset;
             }
             .controls {
                 display: flex;

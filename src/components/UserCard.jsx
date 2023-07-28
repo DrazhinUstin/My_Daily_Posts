@@ -21,8 +21,6 @@ const Wrapper = styled.article.attrs({ className: 'content-card' })`
     text-align: center;
     h4 {
         margin: 1rem 0;
-        text-transform: unset;
-        letter-spacing: unset;
     }
     ${Button} {
         display: block;

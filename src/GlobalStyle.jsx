@@ -33,7 +33,11 @@ const GlobalStyle = createGlobalStyle`
         --main-100-fullscreen: calc(100vh - var(--main-margin-y) * 2);
         --radius: 0.25rem; 
         --trans-ease: all 0.4s ease;
-        --toastify-font-family: var(--font-family);   
+        --toastify-color-light: var(--clr-white);
+        --toastify-color-success: var(--clr-green);
+        --toastify-color-error: var(--clr-red);
+        --toastify-text-color-light: var(--clr-black);   
+        --toastify-font-family: var(--font-family);
     }
 
     *,
@@ -51,14 +55,6 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1rem;
         line-height: 1.5;
         overflow-wrap: anywhere;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        text-transform: capitalize;
-        letter-spacing: var(--spacing);
     }
 
     h1 {
@@ -175,6 +171,10 @@ const GlobalStyle = createGlobalStyle`
             background-color: var(--clr-white);
             color: var(--clr-black);
         }
+    }
+
+    .Toastify__toast {
+        box-shadow: var(--main-shadow);
     }
 `;
 

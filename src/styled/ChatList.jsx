@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 export default styled.ul.attrs({ className: 'content-card' })`
     margin: auto;
-    padding: 0;
     overflow: hidden;
+    &&& {
+        padding: 0;
+    }
     li {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -16,9 +18,6 @@ export default styled.ul.attrs({ className: 'content-card' })`
             justify-content: space-between;
             align-items: center;
             margin-bottom: 0.25rem;
-        }
-        h4 {
-            letter-spacing: unset;
         }
         .date {
             color: var(--clr-dark-gray);

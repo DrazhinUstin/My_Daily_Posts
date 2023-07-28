@@ -4,7 +4,9 @@ export default styled.div.attrs({ className: 'content-card' })`
     --chat-header-height: 4rem;
     --chat-form-height: 4rem;
     margin: auto;
-    padding: 0;
+    &&& {
+        padding: 0;
+    }
     .chat-header {
         height: var(--chat-header-height);
         display: flex;
@@ -17,9 +19,6 @@ export default styled.div.attrs({ className: 'content-card' })`
             align-items: center;
             column-gap: 0.5rem;
             color: var(--clr-black);
-            h4 {
-                letter-spacing: unset;
-            }
         }
         .menu {
             position: relative;

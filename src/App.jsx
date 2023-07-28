@@ -70,7 +70,7 @@ const App = () => {
                     <Route path='*' element={<NotFound />} />
                 </Routes>
             </Router>
-            <ToastContainer position='top-center' />
+            <ToastContainer position='top-center' closeButton={false} />
         </>
     );
 };

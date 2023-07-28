@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { FaUserEdit } from 'react-icons/fa';
 import { auth } from '../firebase';
 import { ConnectionBtn, MessageBtn } from '.';
-import { Avatar, Title, Button } from '../styled';
+import { Avatar, Button } from '../styled';
 import { breakpoints } from '../GlobalStyle';
 import styled from 'styled-components';
 
@@ -11,7 +11,7 @@ const ProfileHeader = ({ photoURL, displayName, uid, connections }) => {
         <Header>
             <div className='info'>
                 <Avatar src={photoURL} size='10rem' margin='auto' />
-                <Title>{displayName}</Title>
+                <h2>{displayName}</h2>
             </div>
             {uid === auth.currentUser.uid ? (
                 <Button as={Link} to='/settings/profile' $flex>
@@ -40,6 +40,7 @@ const Header = styled.header.attrs({ className: 'content-card' })`
         grid-template-columns: auto 1fr;
         align-items: center;
         gap: 1em;
+        text-align: center;
     }
     .btns {
         flex-shrink: 0;
